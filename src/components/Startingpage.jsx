@@ -64,7 +64,7 @@ const Startingpage = () => {
         <Grid item>
         <Box textAlign='center'>
   <Button variant='contained'>
-     START
+     hei
   </Button>
 </Box>
             </Grid>
