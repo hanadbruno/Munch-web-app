@@ -5,11 +5,13 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import { Box } from '@material-ui/core';
+import { red } from '@material-ui/core/colors';
 
 
 const useStyles = makeStyles((theme) => ({
   startingPage: {
     height: '100vh',
+    backgroundColor: '#fe390f',
   },
   pageTitle: {
     marginBottom: theme.spacing(2),
@@ -42,7 +44,7 @@ const Startingpage = () => {
     >
       <Grid item>
         <Typography variant="h4" className={classes.pageTitle}>
-          MyMunch
+          MUNCH
         </Typography>
       </Grid>
       <Grid item>
@@ -64,7 +66,7 @@ const Startingpage = () => {
         <Grid item>
         <Box textAlign='center'>
   <Button variant='contained'>
-     JEeee
+     START
   </Button>
 </Box>
             </Grid>
