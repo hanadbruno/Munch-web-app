@@ -3,8 +3,13 @@ import '../App.css';
 import CanvasDraw from "react-canvas-draw";
 
 function App() {
+  const [name, setName] = useState("");
   const [brushRadius, setBrushRadius] = useState(12);
   const [brushColor, setBrushColor] = useState('#444');
+
+  const handleNameChange = (event) => {
+    setName(event.target.value);
+  };
 
   const handleRadiusChange = (event) => {
     setBrushRadius(event.target.value);
@@ -26,7 +31,7 @@ function App() {
       </label>
       <CanvasDraw
         loadTimeOffset={5}
-        lazyRadius={20}
+        lazyRadius={0}
         brushRadius={brushRadius}
         brushColor={brushColor}
         catenaryColor={"#0a0302"}
@@ -40,7 +45,16 @@ function App() {
         immediateLoading={false}
         hideInterface={false}
       />
+      <div className="input-container">
+        <input
+          type="text"
+          value={name}
+          onChange={handleNameChange}
+          placeholder="Enter your name"
+        />
+      </div>
     </div>
+    
   );
 }
 
