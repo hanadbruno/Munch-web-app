@@ -5,10 +5,12 @@
     justify-content: center;
     height: 100vh;
     overflow: hidden;
+    background-color: red;
   }
   
   .Drawing .canvas-draw {
     margin-bottom: 20px;
+    background-color: red;
   }
   
   .Drawing .input-container {
