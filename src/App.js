@@ -1,13 +1,15 @@
-import logo from './logo.svg';
-import './App.css';
-
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Startingpage from './components/Startingpage';
+import DrawingPage from './components/DrawingPage';
 
 const App = () => {
   return (
-    <div>
-      <Startingpage />
-    </div>
+    <Router>
+      <Routes>
+        <Route path="/" element={<Startingpage />} />
+        <Route path="/DrawingPage" element={<DrawingPage />} />
+      </Routes>
+    </Router>
   );
 };
 
