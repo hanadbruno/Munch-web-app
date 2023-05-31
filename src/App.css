@@ -36,3 +36,10 @@ input {
 .start-button:hover {
   background-color: #ff9800;
 }
+
+.canvas-draw{
+  width: 1000px;
+  height: 1000px;
+  border: #194641;
+  border-radius: 5px;
+}

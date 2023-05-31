@@ -29,22 +29,23 @@ function App() {
         Brush Color:
         <input type="color" value={brushColor} onChange={handleColorChange} />
       </label>
-      <CanvasDraw
-        loadTimeOffset={5}
-        lazyRadius={0}
-        brushRadius={brushRadius}
-        brushColor={brushColor}
-        catenaryColor={"#0a0302"}
-        gridColor={"rgba(150,150,150,0.17)"}
-        hideGrid={false}
-        canvasWidth={1000}
-        canvasHeight={1000}
-        disabled={false}
-        imgSrc={""}
-        saveData={null}
-        immediateLoading={false}
-        hideInterface={false}
-      />
+        <CanvasDraw
+          className='canvas-draw'
+          loadTimeOffset={5}
+          lazyRadius={0}
+          brushRadius={brushRadius}
+          brushColor={brushColor}
+          catenaryColor={"#0a0302"}
+          gridColor={"rgba(150,150,150,0.17)"}
+          hideGrid={false}
+          canvasWidth={1000}
+          canvasHeight={1000}
+          disabled={false}
+          imgSrc={""}
+          saveData={null}
+          immediateLoading={false}
+          hideInterface={false}
+        />
       <div className="input-container">
         <input
           type="text"
