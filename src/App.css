@@ -33,6 +33,25 @@ input {
   cursor: pointer;
 }
 
+.save-button {
+  padding: 20px 40px; 
+  font-size: 24px; 
+  font-weight: bold;
+  border: none;
+  border-radius: 5px;
+  background-color: #99eb98;
+  color: #fff;
+  cursor: pointer;
+}
+
 .start-button:hover {
   background-color: #ff9800;
+}
+
+/*need border on canvas*/
+.canvas-draw{
+  width: 1000px;
+  height: 1000px;
+  border: #194641;
+  border-radius: 5px;
 }
