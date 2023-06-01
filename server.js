@@ -5,7 +5,7 @@ const app = express();
 const axios = require('axios');
 
 app.use(cors());
-app.use(express.json({ limit: '10mb' }));
+app.use(express.json({ limit: '100mb' }));
 
 app.post('/save-image', (req, res) => {
   const data = req.body.image;
