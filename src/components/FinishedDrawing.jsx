@@ -8,13 +8,13 @@ const FinishDrawing = () => {
   // canvas reference:
   const canvasRef = useRef(null);
 
+
   return (
     <div className="ArtworkBody">
-        <h3>Artwork</h3>
         <div className="ArtworkImage"></div>
-      <h3>Title</h3>
+      <h3 className="Title">Title</h3>
       <input placeholder="Unnamed"></input>
-      <h3>Signature</h3>
+      <h3 className="Title">Signature</h3>
 
       <CanvasDraw
         ref={canvasRef}
@@ -26,7 +26,7 @@ const FinishDrawing = () => {
         catenaryColor={"#0a0302"}
         gridColor={"rgba(150,150,150,0.17)"}
         hideGrid={false}
-        canvasWidth={500}
+        canvasWidth={800}
         canvasHeight={200}
         disabled={false}
         imgSrc={""}
@@ -34,17 +34,12 @@ const FinishDrawing = () => {
         immediateLoading={false}
         hideInterface={false}
       />
-      <div>
-        <label>
-          <div>
-            <div
-              className="color-preview"
-              style={{ backgroundColor: brushColor }}
-            ></div>
-          </div>
-        </label>
-      </div>
+
+    <button className="save-button">
+        SAVE
+      </button>
     </div>
+    
   );
 };
 
