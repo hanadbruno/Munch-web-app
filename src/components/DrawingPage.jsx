@@ -3,6 +3,9 @@ import '../Drawing.css';
 import CanvasDraw from "react-canvas-draw";
 // maybe remove: 
 import { useNavigate } from 'react-router-dom';
+import { IconButton } from '@material-ui/core';
+import RefreshIcon from '@mui/icons-material/Refresh';
+
 
 function Drawing() {
   const [name, setName] = useState("");
@@ -57,6 +60,9 @@ function Drawing() {
           <div className="color-preview" style={{ backgroundColor: brushColor }}></div>
           <input type="color" value={brushColor} onChange={handleColorChange} />
         </div>
+        <IconButton color="black">
+  <RefreshIcon fontSize="large" />
+</IconButton>
       </label>
       <CanvasDraw
         ref={canvasRef}
@@ -76,14 +82,7 @@ function Drawing() {
         immediateLoading={false}
         hideInterface={false}
       />
-      <div className="input-container">
-        <input
-          type="text"
-          value={name}
-          onChange={handleNameChange}
-          placeholder="Enter your name"
-        />
-      </div>
+     
       {/* save button, need to route to starting page */}
       <button className="save-button" onClick={handleSaveClick}>
         SAVE
