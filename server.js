@@ -10,9 +10,9 @@ app.use(express.json({ limit: '10mb' }));
 app.post('/save-image', (req, res) => {
   const data = req.body.image;
   //artist name and artwork
+  const uik = "123";
   const artist = "munch";
   const artwork_name = "månestrole";
-  const uik = 123;
   const signature_path = "hdsurivi";
 
 
