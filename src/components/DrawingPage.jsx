@@ -5,6 +5,8 @@ import CanvasDraw from "react-canvas-draw";
 import { useNavigate } from 'react-router-dom';
 import { IconButton } from '@material-ui/core';
 import RefreshIcon from '@mui/icons-material/Refresh';
+import { Button } from '@mui/material';
+import PaletteIcon from '@mui/icons-material/Palette';
 
 
 function Drawing() {
@@ -56,10 +58,12 @@ function Drawing() {
         <input type="range" min="1" max="50" value={brushRadius} onChange={handleRadiusChange} />
       </label>
       <label>
+   
         <div className="color-picker">
           <div className="color-preview" style={{ backgroundColor: brushColor }}></div>
           <input type="color" value={brushColor} onChange={handleColorChange} />
         </div>
+    
         <IconButton color="black">
   <RefreshIcon fontSize="large" />
 </IconButton>
@@ -84,9 +88,16 @@ function Drawing() {
       />
      
       {/* save button, need to route to starting page */}
-      <button className="save-button" onClick={handleSaveClick}>
-        SAVE
-      </button>
+      <div style={{ display: 'flex', justifyContent: 'flex-start' }}>
+  
+      <button className="save-button" onClick={handleSaveClick} style={{ marginLeft: '900px', marginRight: '0', backgroundColor: 'red', color: 'black', fontSize: '40px' }}>
+  DONE
+</button>
+
+</div>
+
+
+
     </div>
   );
 }
