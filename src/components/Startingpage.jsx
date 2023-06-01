@@ -7,7 +7,7 @@ function App() {
   const handleStartClick = () => {
     navigate('/DrawingPage');
   };
-
+//TESTCOMMENT
   return (
     <div className="container">
       <div className="main-text">
