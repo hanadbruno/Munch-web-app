@@ -67,14 +67,14 @@ const FinishedDrawing = () => {
       />
 
     <button className="save-button" onClick={handleSaveClick}>
-        QUIT
+        SAVE
       </button>
 
       <button className="quit-button">
-        SAVE
+        QUIT
       </button>
     </div>
   );
 };
 
-export default FinishDrawing;
+export default FinishedDrawing;
