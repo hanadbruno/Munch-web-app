@@ -41,7 +41,7 @@ function Drawing() {
     });
 
     if (response.ok) {
-      navigate('Startingpage');
+      navigate('/');
     } else {
       // Handle error...
     }
