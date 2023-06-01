@@ -22,6 +22,18 @@ function Drawing() {
     setBrushColor(event.target.value);
   };
 
+  const handleEraseAll = () => {
+    if (canvasRef.current) {
+      canvasRef.current.eraseAll();
+    }
+  }
+
+  const handleUndo = () => {
+    if (canvasRef.current) {
+      canvasRef.current.undo();
+    }
+  }
+
   // on save click here:
   const handleSaveClick = async () => {
     // Get the canvas' internal canvas and convert it to a base64 PNG
@@ -82,6 +94,13 @@ function Drawing() {
       {/* save button, need to route to starting page */}
       <button className="save-button" onClick={handleSaveClick}>
         SAVE
+      </button>
+
+      <button className="erase-button" onClick={handleEraseAll}>
+        Erase All
+      </button>
+      <button className="undo-button" onClick={handleUndo}>
+        Undo
       </button>
     </div>
   );
