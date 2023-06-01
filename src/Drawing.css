@@ -1,3 +1,7 @@
+@font-face {
+  font-family: GirottMunch;
+  src: url('./fonts/GirottMunch-Bold.ttf');
+}
 .Drawing {
     display: flex;
     flex-direction: column;
@@ -73,5 +77,13 @@
   
   .Drawing .color-picker input[type="color"] {
     display: none;
+  }
+
+  .save-button{
+
+ 
+      font-family: GirottMunch;
+
+
   }
   
