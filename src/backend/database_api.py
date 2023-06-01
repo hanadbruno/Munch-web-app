@@ -52,16 +52,15 @@ def not_found():
 def add_data():
     artwork = mongo[app.config['MONGO_DBNAME']].artwork
     uik = request.json['uik'] # uik = unique image key
-    artist = request.json['artist']
     artwork_name = request.json['artwork_name']
     artwork_path = request.json['artwork_path']
     signature_path = request.json['signature_path']
     time = datetime.now()
-    if uik and artist and artwork_path and signature_path:
-        result = artwork.insert_one({'uik': uik, 'artist': artist, 'artwork_name': artwork_name, 'artwork_path': artwork_path, 'signature_path': signature_path, 'time': time})
+    if uik and artwork_path and signature_path:
+        result = artwork.insert_one({'uik': uik, 'artwork_name': artwork_name, 'artwork_path': artwork_path, 'signature_path': signature_path, 'time': time})
         id = result.inserted_id
         new_data = artwork.find_one({'_id': id})
-        output = {'_id': str(new_data.get('_id', '')), 'uik': new_data.get('uik', ''), 'artist': new_data.get('artist', ''), 'artwork_name': new_data.get('artwork_name', ''), 'artwork_path': new_data.get('artwork_path', ''), 'signature_path': new_data.get('signature_path', ''), 'time': new_data.get('time', '')}
+        output = {'_id': str(new_data.get('_id', '')), 'uik': new_data.get('uik', ''), 'artwork_name': new_data.get('artwork_name', ''), 'artwork_path': new_data.get('artwork_path', ''), 'signature_path': new_data.get('signature_path', ''), 'time': new_data.get('time', '')}
         return jsonify({'result': output})
     else:
         return not_found()

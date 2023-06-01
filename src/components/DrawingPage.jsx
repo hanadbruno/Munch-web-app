@@ -41,7 +41,8 @@ function Drawing() {
     });
 
     if (response.ok) {
-      navigate('Startingpage');
+      const { filename } = await response.json();
+      navigate('/FinishedDrawing', { state: { filename } });
     } else {
       // Handle error...
     }
