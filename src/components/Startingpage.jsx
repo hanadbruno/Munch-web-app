@@ -1,15 +1,8 @@
-import React, { useState } from "react";
 import { useNavigate } from 'react-router-dom';
 import "../App.css";
 
-//TEST COMMENT
 function App() {
-  const [name, setName] = useState("");
   const navigate = useNavigate();
-
-  const handleNameChange = (event) => {
-    setName(event.target.value);
-  };
 
   const handleStartClick = () => {
     navigate('/DrawingPage');
@@ -17,13 +10,12 @@ function App() {
 
   return (
     <div className="container">
-      <div className="input-container">
-        <input
-          type="text"
-          value={name}
-          onChange={handleNameChange}
-          placeholder="Enter your name"
-        />
+      <div className="main-text">
+
+      EDVARD MUNCH TESTAMENTED A LARGE PART OF HIS WORK TO THE CITY OF OSLO.
+      THIS DONATION FORMED THE FOUNDATION FOR THE MUSEUM. HIS WORK IS OWNED BY THE PEOPLE, 
+      AND THEREFORE SO IS MUNCH. IN THIS SPIRIT OF SHARED OWNERSHIP, YOU ARE INVITED TO CONTRIBUTE YOUR ART.
+          
       </div>
       <button className="start-button" onClick={handleStartClick}>
         START
