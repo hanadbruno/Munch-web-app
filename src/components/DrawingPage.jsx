@@ -8,16 +8,11 @@ import RefreshIcon from '@mui/icons-material/Refresh';
 
 
 function Drawing() {
-  const [name, setName] = useState("");
   const navigate = useNavigate();
   const [brushRadius, setBrushRadius] = useState(12);
   const [brushColor, setBrushColor] = useState('#444');
   // canvas reference:
   const canvasRef = useRef(null);
-
-  const handleNameChange = (event) => {
-    setName(event.target.value);
-  };
 
   const handleRadiusChange = (event) => {
     setBrushRadius(event.target.value);
