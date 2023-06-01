@@ -3,8 +3,6 @@ import '../Drawing.css';
 import CanvasDraw from "react-canvas-draw";
 // maybe remove: 
 import { useNavigate } from 'react-router-dom';
-import { Container } from '@material-ui/core';
-import RefreshIcon from '@mui/icons-material/Refresh';
 
 function Drawing() {
   const [name, setName] = useState("");
@@ -50,7 +48,6 @@ function Drawing() {
   };
 
   return (
-    
     <div className="Drawing">
       <label>
         <input type="range" min="1" max="50" value={brushRadius} onChange={handleRadiusChange} />
@@ -85,7 +82,6 @@ function Drawing() {
         SAVE
       </button>
     </div>
-   
   );
 }
 
