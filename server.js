@@ -10,10 +10,8 @@ app.use(express.json({ limit: '10mb' }));
 app.post('/save-image', (req, res) => {
   const data = req.body.image;
   //artist name and artwork
-  const uik = "123";
   const artist = "munch";
   const artwork_name = "solstrole";
-  const signature_path = "blablabla";
 
   const base64Data = data.split(',')[1];
   const buffer = Buffer.from(base64Data, 'base64');
@@ -27,11 +25,9 @@ app.post('/save-image', (req, res) => {
     } else {
       // Now that the image is saved, send metadata to Python API
       axios.post('http://127.0.0.1:5000/api', {
-        uik: uik,
         artist: artist,
         artwork_name: artwork_name,
-        signature_path: signature_path,
-        artwork_path: filename
+        img: filename
       })
       .then(function (response) {
         res.send('Image and metadata saved successfully');
