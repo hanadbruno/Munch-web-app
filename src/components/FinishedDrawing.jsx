@@ -3,7 +3,7 @@ import React, { useRef, useState } from "react";
 import { useLocation } from "react-router-dom";
 import "../FinishedDrawing.css";
 
-const FinishDrawing = () => {
+const FinishedDrawing = () => {
   const [brushRadius] = useState(6);
   const [brushColor] = useState("#444");
   const [artworkName, setArtworkName] = useState("");
@@ -66,7 +66,11 @@ const FinishDrawing = () => {
         hideInterface={false}
       />
 
-      <button className="save-button" onClick={handleSaveClick}>
+    <button className="save-button" onClick={handleSaveClick}>
+        QUIT
+      </button>
+
+      <button className="quit-button">
         SAVE
       </button>
     </div>
