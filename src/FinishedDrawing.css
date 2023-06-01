@@ -1,9 +1,35 @@
-.ArtworkBody {
- text-align: center;   
-}
-
-/*.ArtworkImage {
-    border: black 10px solid;
+body {
+    margin: 0;
+    padding: 0;
+  }
+  
+  .ArtworkBody {
+    text-align: center;
+    background-color: #FE390F;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+  }
+  
+  .ArtworkImage {
+    border: white 10px solid;
     width: 250px;
-    height: 300px;
-  }*/
+    height: 350px;
+    margin: 20px auto; /* Adjusted margin */
+    background-color: white;
+  }
+  
+  .Title {
+    font-size: 90px;
+    font-weight: bold;
+    margin: 20px auto; /* Adjusted margin */
+    font-family: GirottMunch;
+    color: #000000;
+  }
+  
+  .canvas-draw {
+    margin: 20px auto; /* Adjusted margin */
+  }
+  
