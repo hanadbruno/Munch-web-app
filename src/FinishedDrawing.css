@@ -17,19 +17,47 @@ body {
     border: white 10px solid;
     width: 250px;
     height: 350px;
-    margin: 20px auto; /* Adjusted margin */
+    margin: 50px auto;
     background-color: white;
   }
   
   .Title {
     font-size: 90px;
     font-weight: bold;
-    margin: 20px auto; /* Adjusted margin */
+    margin: 20px auto;
     font-family: GirottMunch;
     color: #000000;
   }
   
   .canvas-draw {
-    margin: 20px auto; /* Adjusted margin */
+    margin: 20px auto;
+  }
+  
+  .save-button {
+    position: fixed;
+    bottom: 100px;
+    left: 300px;
+    font-size: 55px;
+    font-weight: bold;
+    border: none;
+    border-radius: 5px;
+    background-color: #fe390f;
+    color: #000000;
+    cursor: pointer;
+    font-family: GirottMunch;
+  }
+  
+  .quit-button {
+    position: fixed;
+    bottom: 100px;
+    right: 300px;
+    font-size: 55px;
+    font-weight: bold;
+    border: none;
+    border-radius: 5px;
+    background-color: #fe390f;
+    color: #000000;
+    cursor: pointer;
+    font-family: GirottMunch;
   }
   

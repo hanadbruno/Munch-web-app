@@ -2,7 +2,7 @@ import CanvasDraw from "react-canvas-draw";
 import React, { useRef, useState } from "react";
 import "../FinishedDrawing.css";
 
-const FinishDrawing = () => {
+const FinishedDrawing = () => {
   const [brushRadius] = useState(6);
   const [brushColor] = useState("#444");
   // canvas reference:
@@ -13,7 +13,7 @@ const FinishDrawing = () => {
     <div className="ArtworkBody">
         <div className="ArtworkImage"></div>
       <h3 className="Title">Title</h3>
-      <input placeholder="Unnamed"></input>
+      <input type="text" placeholder="Unnamed" maxlength="30"></input>
       <h3 className="Title">Signature</h3>
 
       <CanvasDraw
@@ -36,6 +36,10 @@ const FinishDrawing = () => {
       />
 
     <button className="save-button">
+        QUIT
+      </button>
+
+      <button className="quit-button">
         SAVE
       </button>
     </div>
@@ -43,4 +47,4 @@ const FinishDrawing = () => {
   );
 };
 
-export default FinishDrawing;
+export default FinishedDrawing;
