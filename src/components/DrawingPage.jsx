@@ -10,16 +10,11 @@ import PaletteIcon from '@mui/icons-material/Palette';
 
 
 function Drawing() {
-  const [name, setName] = useState("");
   const navigate = useNavigate();
   const [brushRadius, setBrushRadius] = useState(12);
   const [brushColor, setBrushColor] = useState('#444');
   // canvas reference:
   const canvasRef = useRef(null);
-
-  const handleNameChange = (event) => {
-    setName(event.target.value);
-  };
 
   const handleRadiusChange = (event) => {
     setBrushRadius(event.target.value);
@@ -28,6 +23,18 @@ function Drawing() {
   const handleColorChange = (event) => {
     setBrushColor(event.target.value);
   };
+
+  const handleEraseAll = () => {
+    if (canvasRef.current) {
+      canvasRef.current.eraseAll();
+    }
+  }
+
+  const handleUndo = () => {
+    if (canvasRef.current) {
+      canvasRef.current.undo();
+    }
+  }
 
   // on save click here:
   const handleSaveClick = async () => {
@@ -89,6 +96,12 @@ function Drawing() {
       />
      
       {/* save button, need to route to starting page */}
+      <button className="erase-button" onClick={handleEraseAll}>
+        Erase All
+      </button>
+      <button className="undo-button" onClick={handleUndo}>
+        Undo
+      </button>
       <div style={{ display: 'flex', justifyContent: 'flex-start' }}>
   
       <button className="save-button" onClick={handleSaveClick} style={{ marginLeft: '900px', marginRight: '0', backgroundColor: 'red', color: 'black', fontSize: '40px' }}>
@@ -96,7 +109,6 @@ function Drawing() {
 </button>
 
 </div>
-
 
 
     </div>
