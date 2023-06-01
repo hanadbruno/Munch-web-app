@@ -28,8 +28,9 @@ def get_all_data():
     artwork = mongo[app.config['MONGO_DBNAME']].artwork
     output = []
     for u in artwork.find():
-        output.append({'_id': str(u.get('_id', '')), 'artist': u.get('artist', ''), 'artwork_name': u.get('artwork_name', ''), 'img': u.get('img', ''), 'time': u.get('time', '')})
+        output.append({'_id': str(u.get('_id', '')), 'uik': u.get('uik', ''), 'artist': u.get('artist', ''), 'artwork_name': u.get('artwork_name', ''), 'artwork_path': u.get('artwork_path', ''), 'signature_path': u.get('signature_path', ''), 'time': u.get('time', '')})
     return jsonify({'result': output})
+
 
 
 @app.route('/api/<id>', methods=['GET'])
@@ -50,18 +51,23 @@ def not_found():
 @app.route('/api', methods=['POST'])
 def add_data():
     artwork = mongo[app.config['MONGO_DBNAME']].artwork
+    uik = request.json['uik'] # uik = unique image key
     artist = request.json['artist']
     artwork_name = request.json['artwork_name']
-    img = request.json['img']
+    artwork_path = request.json['artwork_path']
+    signature_path = request.json['signature_path']
     time = datetime.now()
-    if artist and img:
-        result = artwork.insert_one({'artist': artist, 'artwork_name': artwork_name, 'img': img, 'time': time})
+    if uik and artist and artwork_path and signature_path:
+        result = artwork.insert_one({'uik': uik, 'artist': artist, 'artwork_name': artwork_name, 'artwork_path': artwork_path, 'signature_path': signature_path, 'time': time})
         id = result.inserted_id
         new_data = artwork.find_one({'_id': id})
-        output = {'artist': new_data['artist'], 'artwork_name': new_data['artwork_name'], 'img': new_data['img'], 'time': time}
+        output = {'_id': str(new_data.get('_id', '')), 'uik': new_data.get('uik', ''), 'artist': new_data.get('artist', ''), 'artwork_name': new_data.get('artwork_name', ''), 'artwork_path': new_data.get('artwork_path', ''), 'signature_path': new_data.get('signature_path', ''), 'time': new_data.get('time', '')}
         return jsonify({'result': output})
     else:
         return not_found()
+
+# get request
+
 
 
 if __name__ == '__main__':
