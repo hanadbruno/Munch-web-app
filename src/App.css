@@ -12,26 +12,28 @@
   font-family: Arial, sans-serif;
   background-color: #fe390f;
 }
+
 .main-text {
   padding-right: 20%;
   padding-top: 10%;
-  font-size: 60px;
+  font-size: 6vw;
   font-weight: bold;
   color: #fff;
-  margin-bottom: 20px;
+  margin-bottom: 2vh;
   width: 50vh;
-  padding-bottom: 20%;
+  padding-bottom: 20vh;
   font-family: GirottMunch;
 }
 
 .input-container {
-  margin-bottom: 20px;
+  margin-bottom: 2vh;
 }
 
 input {
-  width: 400px; 
-  padding: 20px; 
-  font-size: 24px; 
+  width: 80%;
+  max-width: 400px;
+  padding: 2vh;
+  font-size: 2vw;
   text-align: center;
   border: none;
   border-radius: 5px;
@@ -39,9 +41,9 @@ input {
 }
 
 .start-button {
-  padding: 10px 10px; 
-  margin-bottom: 100px;
-  font-size: 100px; 
+  padding: 1vh 2vh;
+  margin-bottom: 10vh;
+  font-size: 6vw;
   font-weight: bold;
   border: none;
   border-radius: 5px;
@@ -55,10 +57,12 @@ input {
   background-color: #ff9800;
 }
 
-/*need border on canvas*/
-.canvas-draw{
-  width: 1000px;
-  height: 1000px;
-  border: #194641;
+/* Need border on canvas */
+.canvas-draw {
+  width: 80vw;
+  max-width: 1000px;
+  height: 80vw;
+  max-height: 1000px;
+  border: 2px solid #194641;
   border-radius: 5px;
 }
