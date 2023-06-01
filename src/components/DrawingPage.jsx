@@ -7,6 +7,7 @@ import { IconButton } from '@material-ui/core';
 import RefreshIcon from '@mui/icons-material/Refresh';
 import { Button } from '@mui/material';
 import PaletteIcon from '@mui/icons-material/Palette';
+import { Opacity } from '@mui/icons-material';
 
 
 function Drawing() {
@@ -26,7 +27,9 @@ function Drawing() {
 
   const handleEraseAll = () => {
     if (canvasRef.current) {
-      canvasRef.current.eraseAll();
+      if (window.confirm('Are you sure you want to erase all?')) {
+        canvasRef.current.eraseAll();
+      }
     }
   }
 
@@ -72,8 +75,8 @@ function Drawing() {
           <input type="color" value={brushColor} onChange={handleColorChange} />
         </div>
     
-        <IconButton color="black">
-  <RefreshIcon fontSize="large" />
+        <IconButton color="black" style={{fontSize: 50}}>
+  <RefreshIcon fontSize='inherit' onClick={handleUndo}/>
 </IconButton>
       </label>
       <CanvasDraw
@@ -96,20 +99,14 @@ function Drawing() {
       />
      
       {/* save button, need to route to starting page */}
+      <div className='button-container'>
       <button className="erase-button" onClick={handleEraseAll}>
-        Erase All
+        ERASE ALL
       </button>
-      <button className="undo-button" onClick={handleUndo}>
-        Undo
+      <button className="save-button" onClick={handleSaveClick}>
+      DONE
       </button>
-      <div style={{ display: 'flex', justifyContent: 'flex-start' }}>
-  
-      <button className="save-button" onClick={handleSaveClick} style={{ marginLeft: '900px', marginRight: '0', backgroundColor: 'red', color: 'black', fontSize: '40px' }}>
-  DONE
-</button>
-
-</div>
-
+      </div>
 
     </div>
   );
