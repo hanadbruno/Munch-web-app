@@ -5,6 +5,9 @@ import CanvasDraw from "react-canvas-draw";
 import { useNavigate } from 'react-router-dom';
 import { IconButton } from '@material-ui/core';
 import RefreshIcon from '@mui/icons-material/Refresh';
+import { Button } from '@mui/material';
+import PaletteIcon from '@mui/icons-material/Palette';
+import { Opacity } from '@mui/icons-material';
 
 
 function Drawing() {
@@ -21,6 +24,20 @@ function Drawing() {
   const handleColorChange = (event) => {
     setBrushColor(event.target.value);
   };
+
+  const handleEraseAll = () => {
+    if (canvasRef.current) {
+      if (window.confirm('Are you sure you want to erase all?')) {
+        canvasRef.current.eraseAll();
+      }
+    }
+  }
+
+  const handleUndo = () => {
+    if (canvasRef.current) {
+      canvasRef.current.undo();
+    }
+  }
 
   // on save click here:
   const handleSaveClick = async () => {
@@ -39,7 +56,8 @@ function Drawing() {
     });
 
     if (response.ok) {
-      navigate('Startingpage');
+      const { filename } = await response.json();
+      navigate('/FinishedDrawing', { state: { filename } });
     } else {
       // Handle error...
     }
@@ -51,12 +69,14 @@ function Drawing() {
         <input type="range" min="1" max="50" value={brushRadius} onChange={handleRadiusChange} />
       </label>
       <label>
+   
         <div className="color-picker">
           <div className="color-preview" style={{ backgroundColor: brushColor }}></div>
           <input type="color" value={brushColor} onChange={handleColorChange} />
         </div>
-        <IconButton color="black">
-  <RefreshIcon fontSize="large" />
+    
+        <IconButton color="black" style={{fontSize: 50}}>
+  <RefreshIcon fontSize='inherit' onClick={handleUndo}/>
 </IconButton>
       </label>
       <CanvasDraw
@@ -79,9 +99,15 @@ function Drawing() {
       />
      
       {/* save button, need to route to starting page */}
-      <button className="save-button" onClick={handleSaveClick}>
-        SAVE
+      <div className='button-container'>
+      <button className="erase-button" onClick={handleEraseAll}>
+        ERASE ALL
       </button>
+      <button className="save-button" onClick={handleSaveClick}>
+      DONE
+      </button>
+      </div>
+
     </div>
   );
 }
