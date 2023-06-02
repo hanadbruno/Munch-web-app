@@ -1,9 +1,63 @@
-.ArtworkBody {
- text-align: center;   
-}
-
-/*.ArtworkImage {
-    border: black 10px solid;
+body {
+    margin: 0;
+    padding: 0;
+  }
+  
+  .ArtworkBody {
+    text-align: center;
+    background-color: #FE390F;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+  }
+  
+  .ArtworkImage {
+    border: white 10px solid;
     width: 250px;
-    height: 300px;
-  }*/
+    height: 350px;
+    margin: 50px auto;
+    background-color: white;
+  }
+  
+  .Title {
+    font-size: 90px;
+    font-weight: bold;
+    margin: 20px auto;
+    font-family: GirottMunch;
+    color: #000000;
+  }
+  
+  .canvas-draw {
+    margin: 20px auto;
+  }
+  
+  .save-button {
+    position: fixed;
+    bottom: 100px;
+    left: 300px;
+    font-size: 55px;
+    font-weight: bold;
+    border: none;
+    border-radius: 5px;
+    background-color: #fe390f;
+    color: #000000;
+    cursor: pointer;
+    font-family: GirottMunch;
+  }
+  
+  .quit-button {
+    position: fixed;
+    bottom: 100px;
+    right: 300px;
+    font-size: 55px;
+    font-weight: bold;
+    border: none;
+    border-radius: 5px;
+    background-color: #fe390f;
+    color: #000000;
+    cursor: pointer;
+    font-family: GirottMunch;
+  }
+  
