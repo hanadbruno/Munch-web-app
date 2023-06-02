@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, send_from_directory
 from pymongo import MongoClient
 from flask_cors import CORS
 from bson import json_util
@@ -23,25 +23,48 @@ def hello():
     return 'Velkommen til dette APIet. For å se data, gå til /api'
 
 
-@app.route('/api', methods=['GET'])
+@app.route('/images/<path:filename>')
+def serve_image(filename):
+    return send_from_directory('C:/Users/jonas/Pictures/munch', filename)
+
+
+@app.route('/artworks', methods=['GET'])
 def get_all_data():
     artwork = mongo[app.config['MONGO_DBNAME']].artwork
     output = []
     for u in artwork.find():
-        output.append({'_id': str(u.get('_id', '')), 'uik': u.get('uik', ''), 'artist': u.get('artist', ''), 'artwork_name': u.get('artwork_name', ''), 'artwork_path': u.get('artwork_path', ''), 'signature_path': u.get('signature_path', ''), 'time': u.get('time', '')})
+        output.append({
+            '_id': str(u.get('_id', '')),
+            'uik': u.get('uik', ''),
+            'artwork_name': u.get('artwork_name', ''),
+            'artwork_path': transform_path(u.get('artwork_path', '')),
+            'signature_path': transform_path(u.get('signature_path', '')),
+            'time': u.get('time', '')
+        })
     return jsonify({'result': output})
 
 
+def transform_path(path):
+    filename = path.split("/")[-1]
+    return f'/images/{filename}'
 
-@app.route('/api/<id>', methods=['GET'])
-def get_one_data(id):
+
+@app.route('/artworks/<uik>', methods=['GET'])
+def get_one_data(uik):
     artwork = mongo[app.config['MONGO_DBNAME']].artwork
-    u = artwork.find_one({'_id': ObjectId(id)})
+    u = artwork.find_one({'uik': uik})
     if u:
-        output = {'_id': str(u.get('_id', '')), 'artist': u.get('artist', ''), 'artwork_name': u.get('artwork_name', ''), 'img': u.get('img', ''), 'time': u.get('time', '')}
+        output = {
+            '_id': str(u.get('_id', '')),
+            'uik': u.get('uik', ''),
+            'artwork_name': u.get('artwork_name', ''),
+            'artwork_path': transform_path(u.get('artwork_path', '')),
+            'signature_path': transform_path(u.get('signature_path', '')),
+            'time': u.get('time', '')
+        }
     else:
-        output = 'No results found'
-    return jsonify({'result': output})
+        output = {'error': 'No results found'}
+    return jsonify(output)
 
 
 def not_found():
@@ -66,8 +89,6 @@ def add_data():
         return not_found()
 
 # get request
-
-
 
 if __name__ == '__main__':
     app.run(debug=True)
