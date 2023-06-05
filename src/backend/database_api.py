@@ -1,14 +1,15 @@
 from flask import Flask, jsonify, request, send_from_directory
+from flask_socketio import SocketIO, emit
 from pymongo import MongoClient
 from flask_cors import CORS
-from bson import json_util
-from bson.objectid import ObjectId
-from datetime import datetime
 from pymongo.server_api import ServerApi
 import json
+from datetime import datetime
+
 
 app = Flask(__name__)
 CORS(app)
+socketio = SocketIO(app, cors_allowed_origins="*")
 
 uri = "mongodb+srv://jonas:munch2023@cluster0.nfwqlqv.mongodb.net/?retryWrites=true&w=majority"
 
@@ -79,7 +80,6 @@ def get_all_uik():
     return jsonify(output)
 
 
-
 def not_found():
     return jsonify({'error': 'Not found'})
 
@@ -91,18 +91,19 @@ def add_data():
     artwork_name = request.json['artwork_name']
     artwork_path = request.json['artwork_path']
     signature_path = request.json['signature_path']
-    time = datetime.now()
+    time = datetime.now().strftime('%Y-%m-%d %H:%M:%S') # change here
     if uik and artwork_path and signature_path:
         result = artwork.insert_one({'uik': uik, 'artwork_name': artwork_name, 'artwork_path': artwork_path, 'signature_path': signature_path, 'time': time})
         id = result.inserted_id
         new_data = artwork.find_one({'_id': id})
         output = {'_id': str(new_data.get('_id', '')), 'uik': new_data.get('uik', ''), 'artwork_name': new_data.get('artwork_name', ''), 'artwork_path': new_data.get('artwork_path', ''), 'signature_path': new_data.get('signature_path', ''), 'time': new_data.get('time', '')}
+        print('Emitting new_image event...')
+        socketio.emit('new_image', output)
+        print('Emitted new_image event:', output)
         return jsonify({'result': output})
     else:
         return not_found()
 
 
-
-
 if __name__ == '__main__':
-    app.run(debug=True)
+    socketio.run(app, debug=True)
