@@ -74,19 +74,6 @@ function Drawing() {
           onChange={handleRadiusChange}
         />
       </label>
-      <label>
-        <div className="color-picker">
-          <div
-            className="color-preview"
-            style={{ backgroundColor: brushColor }}
-          ></div>
-          <input type="color" value={brushColor} onChange={handleColorChange} />
-        </div>
-
-        <IconButton color="black" style={{ fontSize: 50 }}>
-          <RefreshIcon fontSize="inherit" onClick={handleUndo} />
-        </IconButton>
-      </label>
       <CanvasDraw
         ref={canvasRef}
         className="canvas-draw"
@@ -105,6 +92,20 @@ function Drawing() {
         immediateLoading={false}
         hideInterface={false}
       />
+
+  <label>
+        <div className="color-picker">
+          <div
+            className="color-preview"
+            style={{ backgroundColor: brushColor }}
+          ></div>
+          <input type="color" value={brushColor} onChange={handleColorChange} />
+        </div>
+
+        <IconButton color="black" style={{ fontSize: 50 }}>
+          <RefreshIcon fontSize="inherit" onClick={handleUndo} />
+        </IconButton>
+      </label>
 
       {/* save button, need to route to starting page */}
       <div className="button-container">
