@@ -3,9 +3,19 @@ const fs = require('fs');
 const cors = require('cors');
 const app = express();
 const axios = require('axios');
+//to create random * process id:
+const crypto = require('crypto');
 
 app.use(cors());
 app.use(express.json({ limit: '100mb' }));
+
+function generateUID() {
+  let randomString = crypto.randomBytes(16).toString('hex');
+  let processId = process.pid;
+  let uid = `${randomString}-${processId}`;
+  return uid;
+}
+
 
 app.post('/save-image', (req, res) => {
   const data = req.body.image;
@@ -27,7 +37,7 @@ app.post('/save-image', (req, res) => {
 });
 
 app.post('/save-signature', (req, res) => {
-  const uik = "1234567890";
+  const uik = generateUID();
   const data = req.body.signature_image;
   const artworkName = req.body.artwork_name;
   const filename = req.body.filename; // this is the artwork image filename
