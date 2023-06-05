@@ -67,6 +67,19 @@ def get_one_data(uik):
     return jsonify(output)
 
 
+@app.route('/artworks/all-uik', methods=['GET'])
+def get_all_uik():
+    artwork = mongo[app.config['MONGO_DBNAME']].artwork
+    output = []
+    for u in artwork.find():
+        output.append({
+            'uik': u.get('uik', ''),
+            'time': u.get('time', '')
+        })
+    return jsonify(output)
+
+
+
 def not_found():
     return jsonify({'error': 'Not found'})
 
@@ -88,7 +101,8 @@ def add_data():
     else:
         return not_found()
 
-# get request
+
+
 
 if __name__ == '__main__':
     app.run(debug=True)
