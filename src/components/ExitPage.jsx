@@ -1,5 +1,20 @@
+import React, { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import "../ExitPage.css";
+
 const ExitPage = () => {
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      navigate("/");
+    }, 10000); // 10000 milliseconds = 10 seconds
+
+    return () => {
+      clearTimeout(timer); // Clear the timer if the component unmounts before the timeout
+    };
+  }, [navigate]);
+
   return (
     <div className="exit-body">
       <div className="exit-page-container">
