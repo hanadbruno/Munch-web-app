@@ -40,10 +40,11 @@
     color: black;
     border: none;
     border-radius: 4px;
-    font-size: 40px;
+    font-size: 50px;
     margin-bottom: -50px;
     cursor: pointer;
-    margin-left: 300;
+    margin-left: 800;
+
   }
   
   .Drawing .save-button:hover {
@@ -80,7 +81,7 @@
   .Drawing .color-picker {
     display: flex;
     align-items: center;
-    margin-left: 10px;
+    margin-right: 850px;
   }
   
   .Drawing .color-picker .color-preview {
@@ -93,5 +94,20 @@
   
   .Drawing .color-picker input[type="color"] {
     display: none;
+    
+  }
+
+  .Drawing .delete-icon{
+
+    position: fixed;
+    left: 15px;
+    top: 15px;
+   
+  }
+  .Drawing .palette-icon{
+
+    font-size: 50px;
+    size: 300px;
+    
   }
   

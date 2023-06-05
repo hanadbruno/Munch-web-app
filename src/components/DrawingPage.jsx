@@ -9,6 +9,7 @@ import { Button } from "@mui/material";
 import PaletteIcon from "@mui/icons-material/Palette";
 import { Opacity } from "@mui/icons-material";
 import { Link } from "react-router-dom";
+import DeleteIcon from '@mui/icons-material/Delete';
 
 function Drawing() {
   const navigate = useNavigate();
@@ -65,6 +66,13 @@ function Drawing() {
 
   return (
     <div className="Drawing">
+      <div className="delete-icon">
+         <label>    <IconButton>
+        <DeleteIcon className="erase-button" onClick={handleEraseAll}>
+    
+        </DeleteIcon>
+        </IconButton></label>
+        </div>
       <label>
         <input
           type="range"
@@ -73,7 +81,9 @@ function Drawing() {
           value={brushRadius}
           onChange={handleRadiusChange}
         />
+       
       </label>
+      
       <CanvasDraw
         ref={canvasRef}
         className="canvas-draw"
@@ -94,10 +104,14 @@ function Drawing() {
       />
 
   <label>
+
         <div className="color-picker">
+          <div className="palette-icon">
+          <PaletteIcon fontSize="large"></PaletteIcon>
+          </div>
           <div
             className="color-preview"
-            style={{ backgroundColor: brushColor }}
+            style={{ backgroundColor: brushColor, opacity: 0}}
           ></div>
           <input type="color" value={brushColor} onChange={handleColorChange} />
         </div>
@@ -110,9 +124,7 @@ function Drawing() {
       {/* save button, need to route to starting page */}
       <div className="button-container">
         ¨
-        <button className="erase-button" onClick={handleEraseAll}>
-          ERASE ALL
-        </button>
+  
         <Link to="/ExitPage">
           <button className="save-button" onClick={handleSaveClick}>
             DONE
