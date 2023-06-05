@@ -11,7 +11,9 @@ const FinishedDrawing = () => {
   const canvasRef = useRef(null);
 
   const location = useLocation();
-  const { filename } = location.state;
+  const { filename2, filename } = location.state;
+
+  const imageUrl = filename2;
 
   //setting name of art
   const handleArtworkNameChange = (event) => {
@@ -29,7 +31,7 @@ const FinishedDrawing = () => {
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({ signature_image: dataUrl, artwork_name: artworkName, filename })
+      body: JSON.stringify({ signature_image: dataUrl, artwork_name: artworkName, filename, filename2 })
     });
 
     if (!response.ok) {
@@ -39,7 +41,9 @@ const FinishedDrawing = () => {
 
   return (
     <div className="ArtworkBody">
-        <div className="ArtworkImage"></div>
+        <div className="ArtworkImage">
+          <img  src={filename2} alt={filename2} />
+        </div>
       <h3 className="Title">Title</h3>
       <input 
         placeholder="Unnamed"

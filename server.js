@@ -20,7 +20,6 @@ function generateUID() {
 app.post('/save-image', (req, res) => {
   const data = req.body.image;
 
-
   const base64Data = data.split(',')[1];
   const buffer = Buffer.from(base64Data, 'base64');
 
@@ -34,7 +33,7 @@ app.post('/save-image', (req, res) => {
       res.status(500).send('Error saving image');
     } else {
       // Image saved, send filename back to client
-      res.json({ filename: db_artpath });
+      res.json({ filename2: filename, filename: db_artpath}); //mby remove
     }
   });
 });
