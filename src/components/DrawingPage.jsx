@@ -8,6 +8,7 @@ import RefreshIcon from '@mui/icons-material/Refresh';
 import { Button } from '@mui/material';
 import PaletteIcon from '@mui/icons-material/Palette';
 import { Opacity } from '@mui/icons-material';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 
 function Drawing() {
@@ -99,10 +100,12 @@ function Drawing() {
       />
      
       {/* save button, need to route to starting page */}
-      <div className='button-container'>
-      <button className="erase-button" onClick={handleEraseAll}>
-        ERASE ALL
+      <div className="button-container">
+      <button className="erase-button" onClick={handleEraseAll} style={{ fontSize: '18px', padding: '10px 20px' }}>
+        <DeleteIcon style={{ fontSize: '24px' }} />
+        
       </button>
+      
       <button className="save-button" onClick={handleSaveClick}>
       DONE
       </button>
