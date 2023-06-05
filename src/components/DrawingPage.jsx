@@ -59,7 +59,7 @@ function Drawing() {
       const { filename } = await response.json();
       navigate("/FinishedDrawing", { state: { filename } });
     } else {
-      // Handle error...
+      navigate("/FinishedDrawing");
     }
   };
 
@@ -113,7 +113,7 @@ function Drawing() {
         <button className="erase-button" onClick={handleEraseAll}>
           ERASE ALL
         </button>
-        <Link to="/ExitPage">
+        <Link to="/FinishedDrawing">
           <button className="save-button" onClick={handleSaveClick}>
             DONE
           </button>

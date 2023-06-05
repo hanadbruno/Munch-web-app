@@ -11,7 +11,7 @@ const FinishedDrawing = () => {
   const canvasRef = useRef(null);
 
   const location = useLocation();
-  const { filename } = location.state;
+  const filename = location.state ? location.state.filename : null;
 
   //setting name of art
   const handleArtworkNameChange = (event) => {
@@ -42,7 +42,7 @@ const FinishedDrawing = () => {
         <div className="ArtworkImage"></div>
       <h3 className="Title">Title</h3>
       <input 
-        placeholder="Unnamed"
+        placeholder="UNNAMED"
         onChange={handleArtworkNameChange}
       />
       <h3 className="Title">Signature</h3> 
