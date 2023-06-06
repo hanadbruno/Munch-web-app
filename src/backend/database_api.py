@@ -20,16 +20,6 @@ app.config['MONGO_URI'] = 'uri'
 mongo = MongoClient(uri, server_api=ServerApi('1'))
 
 
-def load_banned_words():
-    banned_words = []
-    with open('banned_words.txt', 'r') as f:
-        for line in f:
-            banned_words.append(line.strip())
-    return banned_words
-
-banned_words = load_banned_words()
-
-
 @app.route('/', methods=['GET'])
 def hello():
     return 'Velkommen til dette APIet. For å se data, gå til /api'
@@ -102,10 +92,6 @@ def add_data():
     artwork_path = request.json['artwork_path']
     signature_path = request.json['signature_path']
     time = datetime.now().strftime('%Y-%m-%d %H:%M:%S') # change here
-
-    for word in banned_words:
-        if word in artwork_name.lower():
-            abort(400, description="Banned word in artwork name")
 
     if uik and artwork_path and signature_path:
         result = artwork.insert_one({'uik': uik, 'artwork_name': artwork_name, 'artwork_path': artwork_path, 'signature_path': signature_path, 'time': time})
