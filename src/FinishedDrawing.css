@@ -1,24 +1,21 @@
-body {
-    margin: 0;
-    padding: 0;
-  }
+body {   
+    background-color: #FE390F;
+    
+}
   
   .ArtworkBody {
     text-align: center;
-    background-color: #FE390F;
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
+    position: relative;
   }
   
-  .ArtworkImage {
+  .ArtworkImage  {
     border: white 10px solid;
     width: 250px;
-    height: 350px;
-    margin: 0px auto;
+    height: auto;
     background-color: white;
+    text-align: center;
+  
+    
   }
   
   .Title {
@@ -34,9 +31,6 @@ body {
   }
   
   .save-button {
-    position: fixed;
-    bottom: 100px;
-    left: 300px;
     font-size: 55px;
     font-weight: bold;
     border: none;
@@ -48,7 +42,6 @@ body {
   }
   
   .quit-button {
-    position: fixed;
     bottom: 100px;
     right: 300px;
     font-size: 55px;
