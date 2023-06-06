@@ -1,7 +1,9 @@
 import CanvasDraw from "react-canvas-draw";
 import React, { useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import "../FinishedDrawing.css";
+import { Height } from "@mui/icons-material";
 
 const FinishedDrawing = () => {
   const [brushRadius] = useState(6);
@@ -9,13 +11,31 @@ const FinishedDrawing = () => {
   const [artworkName, setArtworkName] = useState("");
   // canvas reference:
   const canvasRef = useRef(null);
+  const navigate = useNavigate();
 
   const location = useLocation();
-  const { filename2, filename } = location.state; 
+  const {filename, filename2} = location.state;
 
   //setting name of art
   const handleArtworkNameChange = (event) => {
     setArtworkName(event.target.value);
+  };
+
+  const handleQuit = async () => {
+    // Send the filepath to your server...
+    const response = await fetch('http://localhost:3001/delete-file', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ path: filename2 })
+    });
+  
+    if (!response.ok) {
+      // Handle error...
+    } else {
+      navigate("/ExitPage");
+    }
   };
 
   const handleSaveClick = async () => {
@@ -29,30 +49,29 @@ const FinishedDrawing = () => {
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({ 
-        signature_image: dataUrl, 
-        artwork_name: artworkName === "" ? "UNTITLED" : artworkName, 
-        filename, 
-        filename2 
-      })
+      body: JSON.stringify({ signature_image: dataUrl, artwork_name: artworkName, filename })
     });
 
     if (!response.ok) {
       // Handle error...
+      navigate("/ExitPage");
+    }
+    else {
+      navigate("/ExitPage");
     }
   };
 
-  const serverUrl = 'http://localhost:3001/';
-
   return (
     <div className="ArtworkBody">
-        <div className="ArtworkImage"><img src={filename} alt={filename} style={{width: "100%", height: "100%"}}/></div>
+        <div className="ArtworkImage">
+          <img src={filename} alt={filename} style={{width: "150%", height: "200%"}}/>
+        </div>
       <h3 className="Title">Title</h3>
       <input 
-        placeholder="Unnamed"
+        placeholder="UNNAMED"
         onChange={handleArtworkNameChange}
       />
-      <h3 className="Title">SIGNATURE</h3> 
+      <h3 className="Title">Signature</h3> 
 
       <CanvasDraw
         ref={canvasRef}
@@ -77,9 +96,9 @@ const FinishedDrawing = () => {
         SAVE
       </button>
 
-      <button className="quit-button">
+      <button className="quit-button" onClick={handleQuit}>
         QUIT
-      </button>
+      </button >
     </div>
   );
 };
