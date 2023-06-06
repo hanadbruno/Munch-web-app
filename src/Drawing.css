@@ -97,11 +97,11 @@
     
   }
 
-  .Drawing .delete-icon{
+  .Drawing .erase-button{
 
     position: fixed;
-    left: 15px;
-    top: 15px;
+    right: 190px;
+    top: 5px;
    
   }
   .Drawing .palette-icon{
@@ -114,4 +114,11 @@
     font-size: x-large;
    
   }
-  
+
+  .Drawing .refresh-button{
+    position: fixed;
+    right: 190px;
+    top: 5px;
+
+  }
+

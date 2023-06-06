@@ -16,6 +16,7 @@ function Drawing() {
   const [brushRadius, setBrushRadius] = useState(12);
   const [brushColor, setBrushColor] = useState("#444");
   const [showSlider, setShowSlider] = useState(false);
+  const [showColorPicker, setShowColorPicker] = useState(false);
   const canvasRef = useRef(null);
 
   const handleRadiusChange = (event) => {
@@ -42,6 +43,12 @@ function Drawing() {
 
   const handleBrushIconClick = () => {
     setShowSlider(!showSlider);
+    setShowColorPicker(false);
+  };
+
+  const handlePaletteIconClick = () => {
+    setShowColorPicker(!showColorPicker);
+    setShowSlider(false);
   };
 
   const handleSliderChange = (event) => {
@@ -54,13 +61,60 @@ function Drawing() {
 
   return (
     <div className="Drawing">
-      <div className="delete-icon">
-        <IconButton>
-          <DeleteIcon className="erase-button" onClick={handleEraseAll} />
-        </IconButton>
-      </div>
+     <div className="delete-icon" style={{ position: "absolute", top: 5, right: 20 }}>
+  <IconButton>
+    <DeleteIcon className="erase-button" onClick={handleEraseAll} />
+  </IconButton>
+</div>
+<label style={{ position: "absolute", top: 0, right: 50 }}>
+  <IconButton color="black" style={{ fontSize: 50 }}>
+    <RefreshIcon fontSize="inherit" onClick={handleUndo} />
+  </IconButton>
+</label>
+
+      <CanvasDraw
+        ref={canvasRef}
+        className="canvas-draw"
+        loadTimeOffset={5}
+        lazyRadius={0}
+        brushRadius={brushRadius}
+        brushColor={brushColor}
+        catenaryColor={"#0a0302"}
+        gridColor={"rgba(150,150,150,0.17)"}
+        hideGrid={false}
+        canvasWidth={1000}
+        canvasHeight={1000}
+        disabled={false}
+        imgSrc={""}
+        saveData={null}
+        immediateLoading={false}
+        hideInterface={false}
+      />
+
       <label>
-        {showSlider && (
+        <div className="color-picker">
+          <div className="icon-container">
+            <PaletteIcon
+              fontSize="large"
+              onClick={handlePaletteIconClick}
+            />
+            <BrushIcon
+              fontSize="large"
+              onClick={handleBrushIconClick}
+            />
+          </div>
+          {showColorPicker && (
+            <input
+              type="color"
+              value={brushColor}
+              onChange={handleColorChange}
+            />
+          )}
+        </div>
+      </label>
+
+      {showSlider && (
+        <div className="slider-container">
           <input
             type="range"
             min="1"
@@ -68,39 +122,10 @@ function Drawing() {
             value={brushRadius}
             onChange={handleSliderChange}
           />
-        )}
-       
-      </label>
-
-      <CanvasDraw
-      ref={canvasRef}className="canvas-draw"
-      loadTimeOffset={5}
-      lazyRadius={0}
-      brushRadius={brushRadius}
-      brushColor={brushColor}
-      catenaryColor={"#0a0302"}
-      gridColor={"rgba(150,150,150,0.17)"}
-      hideGrid={false}canvasWidth={1000}
-      canvasHeight={1000}disabled={false}imgSrc={""}saveData={null}immediateLoading={false}hideInterface={false}/>
-
-      <label>
-        <div className="color-picker" >
-          {/* Replace color-preview with brush icon */}
-          <div className="brush-icon">
-            <PaletteIcon fontSize="large" />
-          </div>
-          <input type="color" value={brushColor} onChange={handleColorChange} />
         </div>
+      )}
+
      
-        <IconButton color="black" style={{ fontSize: 50 }}>
-          <RefreshIcon fontSize="inherit" onClick={handleUndo} />
-        </IconButton>
-      </label>
-      <div className="brush-icon">
-        <IconButton onClick={handleBrushIconClick}>
-          <BrushIcon fontSize="large" />
-        </IconButton>
-        </div>
 
       <div className="button-container">
         <Link to="/ExitPage">
@@ -114,4 +139,7 @@ function Drawing() {
 }
 
 export default Drawing;
+
+
+
 
