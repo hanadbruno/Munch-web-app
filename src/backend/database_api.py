@@ -26,7 +26,7 @@ def hello():
 
 @app.route('/images/<path:filename>')
 def serve_image(filename):
-    return send_from_directory('/Users/jordan/Documents/Munch', filename)
+    return send_from_directory('C:/Users/Hammer/Pictures/munch', filename)
 
 
 @app.route('/artworks', methods=['GET'])

@@ -56,8 +56,8 @@ function Drawing() {
     });
 
     if (response.ok) {
-      const { filename } = await response.json();
-      navigate("/FinishedDrawing", { state: { filename } });
+      const { filename, filename2 } = await response.json();
+      navigate("/FinishedDrawing", { state: { filename, filename2 } });
     } else {
       navigate("/FinishedDrawing");
     }
@@ -113,11 +113,9 @@ function Drawing() {
         <button className="erase-button" onClick={handleEraseAll}>
           ERASE ALL
         </button>
-        <Link to="/FinishedDrawing">
           <button className="save-button" onClick={handleSaveClick}>
             DONE
           </button>
-        </Link>
       </div>
     </div>
   );
