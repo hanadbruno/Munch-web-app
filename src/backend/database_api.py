@@ -6,6 +6,7 @@ from pymongo.server_api import ServerApi
 import json
 from datetime import datetime
 from flask import abort
+import os
 
 
 app = Flask(__name__)
@@ -18,6 +19,7 @@ app.config['MONGO_DBNAME'] = 'MyMunch'
 app.config['MONGO_URI'] = 'uri'
 
 mongo = MongoClient(uri, server_api=ServerApi('1'))
+username = os.getlogin()
 
 
 @app.route('/', methods=['GET'])
@@ -27,7 +29,7 @@ def hello():
 
 @app.route('/images/<path:filename>')
 def serve_image(filename):
-    return send_from_directory('C:/Users/Hammer/Pictures/munch', filename)
+    return send_from_directory(f'C:/Users/{username}/Pictures/munch', filename)
 
 
 @app.route('/artworks', methods=['GET'])

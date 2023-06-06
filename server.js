@@ -6,6 +6,9 @@ const axios = require('axios');
 //to create random * process id:
 const crypto = require('crypto');
 const path = require('path');
+const os = require('os');
+
+const username = os.userInfo().username;
 
 app.use(cors());
 app.use(express.json({ limit: '100mb' }));
@@ -25,7 +28,7 @@ app.post('/save-image', (req, res) => {
   const timestamp = Date.now();
   const db_artpath = `http://127.0.0.1:5000/images/artpiece_${timestamp}.jpg`
 
-  filename = `C:/Users/Hammer/Pictures/munch/artpiece_${timestamp}.jpg`
+  filename = `C:/Users/${username}/Pictures/munch/artpiece_${timestamp}.jpg`
   fs.writeFile(filename, buffer, (err) => {
     if (err) {
       console.error(err);
@@ -68,7 +71,7 @@ app.post('/save-signature', (req, res) => {
   const buffer = Buffer.from(base64Data, 'base64');
   const timestamp = Date.now(); 
   const db_signpath = `http://127.0.0.1/images/signature_${timestamp}.jpg`
-  const signatureFilename = `C:/Users/Hammer/Pictures/munch/signature_${timestamp}.jpg`
+  const signatureFilename = `C:/Users/${username}/Pictures/munch/signature_${timestamp}.jpg`
   fs.writeFile(signatureFilename, buffer, (err) => {
     if (err) {
       console.error(err);
