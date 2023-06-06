@@ -49,7 +49,10 @@ const FinishedDrawing = () => {
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({ signature_image: dataUrl, artwork_name: artworkName, filename })
+      body: JSON.stringify({ 
+        signature_image: dataUrl,
+        artwork_name: artworkName === "" ? "UNTITLED" : artworkName, 
+        filename })
     });
 
     if (!response.ok) {
@@ -66,12 +69,13 @@ const FinishedDrawing = () => {
         <div className="ArtworkImage">
           <img src={filename} alt={filename} style={{width: "150%", height: "200%"}}/>
         </div>
-      <h3 className="Title">Title</h3>
+      <h3 className="Title">TITLE</h3>
       <input 
-        placeholder="UNNAMED"
+        placeholder="UNTITLED"
+        value={artworkName}
         onChange={handleArtworkNameChange}
       />
-      <h3 className="Title">Signature</h3> 
+      <h3 className="Title">SIGNATURE</h3> 
 
       <CanvasDraw
         ref={canvasRef}
