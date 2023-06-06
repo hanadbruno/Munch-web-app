@@ -59,7 +59,7 @@ function Drawing() {
       const { filename, filename2 } = await response.json();
       navigate("/FinishedDrawing", { state: { filename, filename2 } });
     } else {
-      // Handle error...
+      navigate("/FinishedDrawing");
     }
   };
 
@@ -84,8 +84,8 @@ function Drawing() {
         catenaryColor={"#0a0302"}
         gridColor={"rgba(150,150,150,0.17)"}
         hideGrid={false}
-        canvasWidth={1000}
-        canvasHeight={1000}
+        canvasWidth={1536}
+        canvasHeight={2048}
         disabled={false}
         imgSrc={""}
         saveData={null}
