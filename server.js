@@ -25,7 +25,7 @@ app.post('/save-image', (req, res) => {
   const timestamp = Date.now();
   const db_artpath = `http://127.0.0.1:5000/images/artpiece_${timestamp}.jpg`
 
-  filename = `C:/Users/jonas/Pictures/munch/artpiece_${timestamp}.jpg`
+  filename = `C:/Users/Hammer/Pictures/munch/artpiece_${timestamp}.jpg`
   fs.writeFile(filename, buffer, (err) => {
     if (err) {
       console.error(err);
@@ -33,6 +33,28 @@ app.post('/save-image', (req, res) => {
     } else {
       // Image saved, send filename back to client
       res.json({ filename2: filename, filename: db_artpath}); //mby remove
+    }
+  });
+});
+
+app.post('/delete-file', (req, res) => {
+  const filePath = req.body.path;
+  console.log(filePath);
+
+  // Check if the file exists first
+  if (!fs.existsSync(filePath)) {
+    console.error(`File ${filePath} does not exist`);
+    res.status(404).send(`File ${filePath} does not exist`);
+    return;
+  }
+
+  fs.unlink(filePath, (err) => {
+    if (err) {
+      console.error("There was an error:", err);
+      res.status(500).send(err);
+    } else {
+      console.log("File was deleted successfully");
+      res.send({ status: "File was deleted successfully" });
     }
   });
 });
@@ -46,7 +68,7 @@ app.post('/save-signature', (req, res) => {
   const buffer = Buffer.from(base64Data, 'base64');
   const timestamp = Date.now(); 
   const db_signpath = `http://127.0.0.1/images/signature_${timestamp}.jpg`
-  const signatureFilename = `C:/Users/Jonas/Pictures/munch/signature_${timestamp}.jpg`
+  const signatureFilename = `C:/Users/Hammer/Pictures/munch/signature_${timestamp}.jpg`
   fs.writeFile(signatureFilename, buffer, (err) => {
     if (err) {
       console.error(err);
