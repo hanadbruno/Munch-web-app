@@ -56,7 +56,26 @@ function Drawing() {
   };
 
   const handleSaveClick = async () => {
-    // Save functionality
+    // Get the canvas' internal canvas and convert it to a base64 PNG
+    const canvas = canvasRef.current.canvasContainer.children[1];
+    const dataUrl = canvas.toDataURL("image/png");
+
+    // Send the base64 PNG to your server...
+    const response = await fetch("http://localhost:3001/save-image", {
+      // remember to specify the complete URL
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ image: dataUrl }),
+    });
+
+    if (response.ok) {
+      const { filename, filename2 } = await response.json();
+      navigate("/FinishedDrawing", { state: { filename, filename2 } });
+    } else {
+      navigate("/FinishedDrawing");
+    }
   };
 
   return (
@@ -82,8 +101,8 @@ function Drawing() {
         catenaryColor={"#0a0302"}
         gridColor={"rgba(150,150,150,0.17)"}
         hideGrid={false}
-        canvasWidth={1000}
-        canvasHeight={1000}
+        canvasWidth={1536}
+        canvasHeight={2048}
         disabled={false}
         imgSrc={""}
         saveData={null}
@@ -128,11 +147,13 @@ function Drawing() {
      
 
       <div className="button-container">
-        <Link to="/ExitPage">
+        ¨
+        <button className="erase-button" onClick={handleEraseAll}>
+          ERASE ALL
+        </button>
           <button className="save-button" onClick={handleSaveClick}>
             DONE
           </button>
-        </Link>
       </div>
     </div>
   );
