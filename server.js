@@ -9,6 +9,7 @@ const path = require('path');
 const os = require('os');
 
 const username = os.userInfo().username;
+console.log(username);
 
 app.use(cors());
 app.use(express.json({ limit: '100mb' }));
