@@ -1,3 +1,4 @@
+
 import React, { useEffect, useRef, useState } from 'react';
 import { MdOutlineUndo, MdOutlineRedo } from 'react-icons/md';
 import { FaTrashAlt } from 'react-icons/fa';
@@ -140,14 +141,6 @@ const handleSaveClick = async () => {
   // Get the canvas' internal canvas and convert it to a base64 PNG
   const canvas = canvasRef.current;
   const dataUrl = canvas.toDataURL("image/png");
-
-  if (canvas !== undefined && canvas !== null) {
-    // canvas is valid
-    console.log("canvas valid");
-}
-else{
-  console.log("canvas not valid");
-}
 
   // Send the base64 PNG to your server...
   const response = await fetch("http://localhost:3001/save-image", {
@@ -367,6 +360,7 @@ else{
                 </div>
             }
         </div>
+
     </div>
   );
 }
