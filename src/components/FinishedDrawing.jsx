@@ -3,7 +3,6 @@ import React, { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import "../FinishedDrawing.css";
-import { Height } from "@mui/icons-material";
 import { bannedwords } from "../bannedwords.js";
 
 const FinishedDrawing = () => {
