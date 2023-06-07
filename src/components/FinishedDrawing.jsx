@@ -22,7 +22,7 @@ const FinishedDrawing = () => {
   };
 
   const handleQuit = async () => {
-    const response = await fetch('http://localhost:3001/delete-file', {
+    const response = await fetch('http://192.168.83.133:3001/delete-file', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -47,7 +47,7 @@ const FinishedDrawing = () => {
     const canvas = canvasRef.current.canvasContainer.children[1];
     const dataUrl = canvas.toDataURL('image/png');
 
-    const response = await fetch('http://localhost:3001/save-signature', {
+    const response = await fetch('http://192.168.83.133:3001/save-signature', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -69,7 +69,7 @@ const FinishedDrawing = () => {
   return (
     <div className="ArtworkBody">
         <div className="ArtworkImage">
-          <img src={filename} alt={filename} style={{width: "150%", height: "200%"}}/>
+          <img src={filename} alt={filename} style={{width: "100%", height: "100%"}}/>
         </div>
       <h3 className="Title">TITLE</h3>
       <input 

@@ -3,20 +3,22 @@ body {
     
 }
   
-  .ArtworkBody {
-    text-align: center;
-    position: relative;
-  }
-  
-  .ArtworkImage  {
-    border: white 10px solid;
-    width: 250px;
-    height: auto;
-    background-color: white;
-    text-align: center;
-  
-    
-  }
+.ArtworkBody {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Center horizontally */
+  justify-content: center; /* Center vertically */
+  height: 100vh; /* Assuming you want it to fill the viewport height */
+}
+
+.ArtworkImage {
+  border: white 10px solid;
+  width: 17vw;
+  height: auto;
+  background-color: white;
+  text-align: center;
+  margin: 20px auto; /* Remove margin from .canvas-draw and add it here */
+}
   
   .Title {
     font-size: 90px;
