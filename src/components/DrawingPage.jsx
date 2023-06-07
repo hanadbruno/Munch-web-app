@@ -4,8 +4,8 @@ import { MdOutlineUndo, MdOutlineRedo } from 'react-icons/md';
 import { FaTrashAlt } from 'react-icons/fa';
 import { BsFillPaletteFill, BsFillBrushFill } from 'react-icons/bs';
 import { HexColorPicker } from 'react-colorful';
-import ReactSlider from 'react-slider';
 import { useNavigate } from "react-router-dom";
+import "../Drawing.css";
 
 function Drawing() {
   const navigate = useNavigate();
@@ -342,16 +342,12 @@ const handleSaveClick = async () => {
             </div>
             <div ref={brushSizeInputRef} style={brushSizeInputStyle}>
                 {!displayDoneOptions && !showBrushSizeInput && <BsFillBrushFill onClick={e => {setDisplayColorPicker(false); setShowBrushSizeInput(prev => !prev);}} />}
-                {showBrushSizeInput && <ReactSlider 
-                                            orientation='vertical'
-                                            min={1} 
-                                            max={50} 
-                                            value={brushSize} 
-                                            onAfterChange={value => setBrushSize(value)}
-                                            renderThumb={(props, state) => <div {...props} style={{height: `${state.valueNow/2}px`, width: `${state.valueNow/2}px`, background: 'black', borderRadius: '50%', top: '-25%', left: '-12.5%'}}/>}
-                                            renderTrack={(props, state) => <div {...props} style={{background: state.index === 2 ? 'transparent' : 'black', height: '8vh', width: '2vw'}}/>}
-                                            thumbClassName="thumb"
-                                            trackClassName="track"
+                {showBrushSizeInput && <input type="range"
+                                              min={1}
+                                              max={50}
+                                              value={brushSize}
+                                              onChange={e => setBrushSize(Number(e.target.value))}
+                                              className="slider"
                                         />
                 }
             </div>
