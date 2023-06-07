@@ -1,166 +1,369 @@
-import React, { useRef, useState } from "react";
-import "../Drawing.css";
-import CanvasDraw from "react-canvas-draw";
+
+import React, { useEffect, useRef, useState } from 'react';
+import { MdOutlineUndo, MdOutlineRedo } from 'react-icons/md';
+import { FaTrashAlt } from 'react-icons/fa';
+import { BsFillPaletteFill, BsFillBrushFill } from 'react-icons/bs';
+import { HexColorPicker } from 'react-colorful';
+import ReactSlider from 'react-slider';
 import { useNavigate } from "react-router-dom";
-import { IconButton } from "@material-ui/core";
-import RefreshIcon from "@mui/icons-material/Refresh";
-import { Button } from "@mui/material";
-import PaletteIcon from "@mui/icons-material/Palette";
-import { Brush, Opacity } from "@mui/icons-material";
-import { Link } from "react-router-dom";
-import DeleteIcon from '@mui/icons-material/Delete';
-import BrushIcon from '@mui/icons-material/Brush';
 
 function Drawing() {
   const navigate = useNavigate();
-  const [brushRadius, setBrushRadius] = useState(12);
-  const [brushColor, setBrushColor] = useState("#444");
-  const [showSlider, setShowSlider] = useState(false);
-  const [showColorPicker, setShowColorPicker] = useState(false);
   const canvasRef = useRef(null);
+  const contextRef = useRef(null);
+  const brushSizeInputRef = useRef(null);
+  const colorPickerRef = useRef(null);
+  const [drawing, setDrawing] = useState(false);
+  const [brushColor, setBrushColor] = useState('#000000');
+  const [brushSize, setBrushSize] = useState(15);
+  const [history, setHistory] = useState([]);
+  const [step, setStep] = useState(-1);
+  const [displayColorPicker, setDisplayColorPicker] = useState(false);
+  const [showBrushSizeInput, setShowBrushSizeInput] = useState(false);
+  const [displayDoneOptions, setDisplayDoneOptions] = useState(false);
 
-  const handleRadiusChange = (event) => {
-    setBrushRadius(event.target.value);
-  };
+  useEffect(() => {
+    const context = canvasRef.current.getContext('2d');
+    context.strokeStyle = brushColor;
+    context.lineWidth = brushSize;
+  }, [brushColor, brushSize]);
 
-  const handleColorChange = (event) => {
-    setBrushColor(event.target.value);
-  };
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    canvas.width = 1536;
+    canvas.height = 2048;
 
-  const handleEraseAll = () => {
-    if (canvasRef.current) {
-      if (window.confirm("Are you sure you want to erase all?")) {
-        canvasRef.current.eraseAll();
-      }
+    const context = canvas.getContext('2d');
+    context.scale(1536 / canvas.clientWidth, 2048 / canvas.clientHeight);
+    context.lineCap = 'round';
+    context.lineJoin = 'round';
+    context.fillStyle = 'white';
+    context.fillRect(0, 0, canvas.width, canvas.height);
+    contextRef.current = context;
+  }, []);
+
+  useEffect(() => {
+    const handleClickOutside = e => {
+        if (
+            (brushSizeInputRef.current && !brushSizeInputRef.current.contains(e.target)) &&
+            (colorPickerRef.current && !colorPickerRef.current.contains(e.target))
+        ) {
+            setShowBrushSizeInput(false);
+            setDisplayColorPicker(false);
+        }
+    };
+
+    const handleTouchOutside = e => {
+        if (
+            (brushSizeInputRef.current && !brushSizeInputRef.current.contains(e.target)) &&
+            (colorPickerRef.current && !colorPickerRef.current.contains(e.target))
+        ) {
+            setShowBrushSizeInput(false);
+            setDisplayColorPicker(false);
+        }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    document.addEventListener('touchstart', handleTouchOutside);
+
+    return () => {
+        document.removeEventListener('mousedown', handleClickOutside);
+        document.removeEventListener('touchstart', handleTouchOutside);
+    };
+  }, []); 
+
+  const startDrawing = ({ nativeEvent }) => {
+    if (displayDoneOptions) {
+        return;
     }
-  };
 
-  const handleUndo = () => {
-    if (canvasRef.current) {
-      canvasRef.current.undo();
-    }
-  };
-
-  const handleBrushIconClick = () => {
-    setShowSlider(!showSlider);
-    setShowColorPicker(false);
-  };
-
-  const handlePaletteIconClick = () => {
-    setShowColorPicker(!showColorPicker);
-    setShowSlider(false);
-  };
-
-  const handleSliderChange = (event) => {
-    setBrushRadius(event.target.value);
-  };
-
-  const handleSaveClick = async () => {
-    // Get the canvas' internal canvas and convert it to a base64 PNG
-    const canvas = canvasRef.current.canvasContainer.children[1];
-    const dataUrl = canvas.toDataURL("image/png");
-
-    // Send the base64 PNG to your server...
-    const response = await fetch("http://192.168.83.133:3001/save-image", {
-      // remember to specify the complete URL
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ image: dataUrl }),
-    });
-
-    if (response.ok) {
-      const { filename, filename2 } = await response.json();
-      navigate("/FinishedDrawing", { state: { filename, filename2 } });
+    const { offsetX, offsetY, touches } = nativeEvent;
+    if (touches) {
+      const { pageX, pageY } = touches[0];
+      const { top, left } = canvasRef.current.getBoundingClientRect();
+      contextRef.current.beginPath();
+      contextRef.current.moveTo(pageX - left, pageY - top);
     } else {
-      navigate("/FinishedDrawing");
+      contextRef.current.beginPath();
+      contextRef.current.moveTo(offsetX, offsetY);
     }
+    contextRef.current.lineWidth = brushSize;
+    setDrawing(true);
   };
+  
+  const finishDrawing = () => {
+    contextRef.current.closePath();
+    setDrawing(false);
+    setHistory([...history, contextRef.current.getImageData(0, 0, contextRef.current.canvas.width, contextRef.current.canvas.height)]);
+    setStep(prevStep => prevStep + 1);
+  };
+  
+  const draw = ({ nativeEvent }) => {
+    if (!drawing) {
+      return;
+    }
+    const { offsetX, offsetY, touches } = nativeEvent;
+    if (touches) {
+      const { pageX, pageY } = touches[0];
+      const { top, left } = canvasRef.current.getBoundingClientRect();
+      contextRef.current.lineTo(pageX - left, pageY - top);
+    } else {
+      contextRef.current.lineTo(offsetX, offsetY);
+    }
+    contextRef.current.stroke();
+  };
+
+  const clearCanvas = () => {
+    const context = contextRef.current;
+    context.clearRect(0, 0, context.canvas.width, context.canvas.height);
+    let blankState = context.getImageData(0, 0, contextRef.current.canvas.width, contextRef.current.canvas.height);
+    setHistory([...history, blankState]);
+    setStep(prevStep => prevStep + 1);
+};
+
+const undo = () => {
+    if (step > 0) {
+        setStep(prevStep => prevStep - 1);
+        contextRef.current.putImageData(history[step - 1], 0, 0);
+    }
+};
+
+const redo = () => {
+    if (step < history.length - 1) {
+        setStep(prevStep => prevStep + 1);
+        contextRef.current.putImageData(history[step + 1], 0, 0);
+    }
+};
+
+
+const handleSaveClick = async () => {
+
+  // Get the canvas' internal canvas and convert it to a base64 PNG
+  const canvas = canvasRef.current;
+  const dataUrl = canvas.toDataURL("image/png");
+
+  // Send the base64 PNG to your server...
+  const response = await fetch("http://localhost:3001/save-image", {
+    // remember to specify the complete URL
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ image: dataUrl }),
+  });
+
+  if (response.ok) {
+    const { filename, filename2 } = await response.json();
+    navigate("/FinishedDrawing", { state: { filename, filename2 } });
+  } else {
+    navigate("/FinishedDrawing");
+  }
+};
+
+  const containerStyle = {
+    position: 'relative',
+    textAlign: 'center',
+    color: 'white',
+    height: '100vh',
+    width: '100vw',
+    margin: '0',
+    padding: '0',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+    background: '#fe390f',
+  };
+
+  const canvasContainerStyle = {
+    position: 'relative',
+    display: 'inline-block',
+  };
+
+  const redoButtonStyle = {
+    position: 'absolute',
+    color: 'black',
+    margin: '0',
+    padding: '0',
+    right: '0',
+    top: '-4.5vh',
+    background: 'none',
+    border: 'none',
+    textDecoration: 'none',
+    fontSize: '5vw',
+    cursor: 'pointer',
+  };
+
+  const undoButtonStyle = {
+    position: 'absolute',
+    color: 'black',
+    margin: '0',
+    padding: '0',
+    right: '9vw',
+    top: '-4.5vh',
+    background: 'none',
+    border: 'none',
+    textDecoration: 'none',
+    fontSize: '5vw',
+    cursor: 'pointer',
+  };
+
+  const clearButtonStyle = {
+    position: 'absolute',
+    color: 'black',
+    margin: '0',
+    padding: '0',
+    right: '5vw',
+    top: '-4.7vh',
+    background: 'none',
+    border: 'none',
+    textDecoration: 'none',
+    fontSize: '4vw',
+    cursor: 'pointer',
+  };
+
+  const canvasStyle = {
+    display: 'block',
+    width: '87vw',
+    margin: '0',
+    padding: '0',
+    background: 'white'
+  };
+
+  const doneButtonStyle = {
+    position: 'absolute',
+    color: 'black',
+    fontFamily: 'GirottMunch',
+    fontSize: '5vw',
+    textTransform: 'uppercase',
+    margin: '0',
+    padding: '0',
+    right: '0',
+    bottom: '-6.4%',
+    background: 'none',
+    border: 'none',
+    textDecoration: 'none',
+    cursor: 'pointer',
+  };
+
+    const colorPickerContainerStyle = {
+        position: 'absolute',
+        color: 'black',
+        margin: '0',
+        padding: '0',
+        bottom: '-6.1%',
+        fontSize: '5.5vw',
+        cursor: 'pointer',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+    };
+
+    const colorPickerStyle = {
+        position: 'absolute',
+        backgroundColor: 'black',
+        border: '15px solid black',
+        borderRadius: '10px',
+        zIndex: '2',
+        bottom: '40vh',
+        left: '33vw',
+        transform: 'scale(2)',
+        transformOrigin: 'center',
+    };
+
+    const brushSizeInputStyle = {
+        position: 'absolute',
+        color: 'black',
+        margin: '0',
+        padding: '0',
+        bottom: '-6.1%',
+        left: '8vw',
+        fontSize: '5.5vw',
+        cursor: 'pointer',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+    };
+
+    const doneButtonsContainerStyle = {
+        position: 'absolute',
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center',
+        width: '56vw',
+        bottom: '-6.4%',
+        left: '15%',
+        margin: '0',
+        padding: '0',
+    };
+
+    const doneButtonsStyle = {
+        color: 'black',
+        fontFamily: 'GirottMunch',
+        fontSize: '5vw',
+        textTransform: 'uppercase',
+        marginRight: 'vw',
+        marginLeft: '7vw',
+        background: 'none',
+        border: 'none',
+        textDecoration: 'none',
+        cursor: 'pointer',
+    }
+
 
   return (
-    <div className="Drawing">
-     <div className="delete-icon" style={{ position: "absolute", top: 5, right: 20 }}>
-  <IconButton>
-    <DeleteIcon className="erase-button" onClick={handleEraseAll} />
-  </IconButton>
-
-<label style={{ position: "fixed", top: 2, right: 80 }}>
-  <IconButton color="black" style={{ fontSize: 50 }}>
-    <RefreshIcon fontSize="inherit" onClick={handleUndo} />
-  </IconButton>
-</label>
-</div>
-
-      <CanvasDraw
-        ref={canvasRef}
-        className="canvas-draw"
-        loadTimeOffset={5}
-        lazyRadius={0}
-        brushRadius={brushRadius}
-        brushColor={brushColor}
-        catenaryColor={"#0a0302"}
-        gridColor={"rgba(150,150,150,0.17)"}
-        hideGrid={false}
-        canvasWidth={1000}
-        canvasHeight={1000}
-        disabled={false}
-        imgSrc={""}
-        saveData={null}
-        immediateLoading={false}
-        hideInterface={false}
-      />
-
-      <label>
-        <div className="color-picker">
-          <div className="icon-container">
-            <PaletteIcon
-              fontSize="large"
-              onClick={handlePaletteIconClick}
+    <div style={containerStyle}>
+        <div style={canvasContainerStyle}>
+            {!displayDoneOptions && <button onClick={undo} style={undoButtonStyle}><MdOutlineUndo /></button>}
+            {!displayDoneOptions && <button onClick={clearCanvas} style={clearButtonStyle}><FaTrashAlt /></button>}
+            {!displayDoneOptions && <button onClick={redo} style={redoButtonStyle}><MdOutlineRedo /></button>}
+            <canvas
+                onMouseDown={startDrawing}
+                onMouseUp={finishDrawing}
+                onMouseMove={draw}
+                onTouchStart={startDrawing}
+                onTouchEnd={finishDrawing}
+                onTouchMove={draw}
+                ref={canvasRef}
+                style={canvasStyle}
             />
-            <BrushIcon
-              fontSize="large"
-              onClick={handleBrushIconClick}
-            />
-          </div>
-          {showColorPicker && (
-            <input
-              type="color"
-              value={brushColor}
-              onChange={handleColorChange}
-            />
-          )}
+            <div ref={colorPickerRef} style={colorPickerContainerStyle}>
+                {!displayDoneOptions && !displayColorPicker && <BsFillPaletteFill onClick={() => {setShowBrushSizeInput(false); setDisplayColorPicker(true)}} />}
+                {displayColorPicker && (
+                    <div style={colorPickerStyle}>
+                        <HexColorPicker color={brushColor} onChange={setBrushColor} />
+                    </div>
+                )}
+            </div>
+            <div ref={brushSizeInputRef} style={brushSizeInputStyle}>
+                {!displayDoneOptions && !showBrushSizeInput && <BsFillBrushFill onClick={e => {setDisplayColorPicker(false); setShowBrushSizeInput(prev => !prev);}} />}
+                {showBrushSizeInput && <ReactSlider 
+                                            orientation='vertical'
+                                            min={1} 
+                                            max={50} 
+                                            value={brushSize} 
+                                            onAfterChange={value => setBrushSize(value)}
+                                            renderThumb={(props, state) => <div {...props} style={{height: `${state.valueNow/2}px`, width: `${state.valueNow/2}px`, background: 'black', borderRadius: '50%', top: '-25%', left: '-12.5%'}}/>}
+                                            renderTrack={(props, state) => <div {...props} style={{background: state.index === 2 ? 'transparent' : 'black', height: '8vh', width: '2vw'}}/>}
+                                            thumbClassName="thumb"
+                                            trackClassName="track"
+                                        />
+                }
+            </div>
+            {!displayDoneOptions && <button onClick={() => setDisplayDoneOptions(true)} style={doneButtonStyle}>DONE</button>}
+            {displayDoneOptions &&
+                <div style={doneButtonsContainerStyle}>
+                    <button onClick={handleSaveClick} style={doneButtonsStyle}>SAVE</button>
+                    <button style={doneButtonsStyle}>QUIT</button>
+                    <button onClick={() => setDisplayDoneOptions(false)} style={doneButtonsStyle}>BACK</button>
+                </div>
+            }
         </div>
-      </label>
 
-      {showSlider && (
-        <div className="slider-container">
-          <input
-            type="range"
-            min="1"
-            max="50"
-            value={brushRadius}
-            onChange={handleSliderChange}
-          />
-        </div>
-      )}
-
-     
-
-      <div className="button-container">
-        
-   
-          <button className="save-button" onClick={handleSaveClick}>
-            DONE
-          </button>
-      </div>
     </div>
   );
 }
 
 export default Drawing;
-
-
-
-
 

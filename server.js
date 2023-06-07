@@ -34,6 +34,7 @@ app.post('/save-image', (req, res) => {
     if (err) {
       console.error(err);
       res.status(500).send('Error saving image');
+      console.log("eror");
     } else {
       // Image saved, send filename back to client
       res.json({ filename2: filename, filename: db_artpath}); //mby remove
