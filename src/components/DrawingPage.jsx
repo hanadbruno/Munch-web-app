@@ -1,20 +1,22 @@
 import React, { useRef, useState } from "react";
 import "../Drawing.css";
 import CanvasDraw from "react-canvas-draw";
-// maybe remove:
 import { useNavigate } from "react-router-dom";
 import { IconButton } from "@material-ui/core";
 import RefreshIcon from "@mui/icons-material/Refresh";
 import { Button } from "@mui/material";
 import PaletteIcon from "@mui/icons-material/Palette";
-import { Opacity } from "@mui/icons-material";
+import { Brush, Opacity } from "@mui/icons-material";
 import { Link } from "react-router-dom";
+import DeleteIcon from '@mui/icons-material/Delete';
+import BrushIcon from '@mui/icons-material/Brush';
 
 function Drawing() {
   const navigate = useNavigate();
   const [brushRadius, setBrushRadius] = useState(12);
   const [brushColor, setBrushColor] = useState("#444");
-  // canvas reference:
+  const [showSlider, setShowSlider] = useState(false);
+  const [showColorPicker, setShowColorPicker] = useState(false);
   const canvasRef = useRef(null);
 
   const handleRadiusChange = (event) => {
@@ -39,7 +41,20 @@ function Drawing() {
     }
   };
 
-  // on save click here:
+  const handleBrushIconClick = () => {
+    setShowSlider(!showSlider);
+    setShowColorPicker(false);
+  };
+
+  const handlePaletteIconClick = () => {
+    setShowColorPicker(!showColorPicker);
+    setShowSlider(false);
+  };
+
+  const handleSliderChange = (event) => {
+    setBrushRadius(event.target.value);
+  };
+
   const handleSaveClick = async () => {
     // Get the canvas' internal canvas and convert it to a base64 PNG
     const canvas = canvasRef.current.canvasContainer.children[1];
@@ -65,15 +80,18 @@ function Drawing() {
 
   return (
     <div className="Drawing">
-      <label>
-        <input
-          type="range"
-          min="1"
-          max="50"
-          value={brushRadius}
-          onChange={handleRadiusChange}
-        />
-      </label>
+     <div className="delete-icon" style={{ position: "absolute", top: 5, right: 20 }}>
+  <IconButton>
+    <DeleteIcon className="erase-button" onClick={handleEraseAll} />
+  </IconButton>
+
+<label style={{ position: "fixed", top: 2, right: 80 }}>
+  <IconButton color="black" style={{ fontSize: 50 }}>
+    <RefreshIcon fontSize="inherit" onClick={handleUndo} />
+  </IconButton>
+</label>
+</div>
+
       <CanvasDraw
         ref={canvasRef}
         className="canvas-draw"
@@ -84,8 +102,8 @@ function Drawing() {
         catenaryColor={"#0a0302"}
         gridColor={"rgba(150,150,150,0.17)"}
         hideGrid={false}
-        canvasWidth={1536}
-        canvasHeight={2048}
+        canvasWidth={1000}
+        canvasHeight={1000}
         disabled={false}
         imgSrc={""}
         saveData={null}
@@ -93,26 +111,45 @@ function Drawing() {
         hideInterface={false}
       />
 
-  <label>
+      <label>
         <div className="color-picker">
-          <div
-            className="color-preview"
-            style={{ backgroundColor: brushColor }}
-          ></div>
-          <input type="color" value={brushColor} onChange={handleColorChange} />
+          <div className="icon-container">
+            <PaletteIcon
+              fontSize="large"
+              onClick={handlePaletteIconClick}
+            />
+            <BrushIcon
+              fontSize="large"
+              onClick={handleBrushIconClick}
+            />
+          </div>
+          {showColorPicker && (
+            <input
+              type="color"
+              value={brushColor}
+              onChange={handleColorChange}
+            />
+          )}
         </div>
-
-        <IconButton color="black" style={{ fontSize: 50 }}>
-          <RefreshIcon fontSize="inherit" onClick={handleUndo} />
-        </IconButton>
       </label>
 
-      {/* save button, need to route to starting page */}
+      {showSlider && (
+        <div className="slider-container">
+          <input
+            type="range"
+            min="1"
+            max="50"
+            value={brushRadius}
+            onChange={handleSliderChange}
+          />
+        </div>
+      )}
+
+     
+
       <div className="button-container">
-        ¨
-        <button className="erase-button" onClick={handleEraseAll}>
-          ERASE ALL
-        </button>
+        
+   
           <button className="save-button" onClick={handleSaveClick}>
             DONE
           </button>
@@ -122,3 +159,8 @@ function Drawing() {
 }
 
 export default Drawing;
+
+
+
+
+
