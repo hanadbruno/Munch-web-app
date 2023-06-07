@@ -97,13 +97,7 @@
     
   }
 
-  .Drawing .erase-button{
 
-    position: fixed;
-    right: 190px;
-    top: 5px;
-   
-  }
   .Drawing .palette-icon{
 
     font-size: 50px;
@@ -114,11 +108,16 @@
     font-size: x-large;
    
   }
-
-  .Drawing .refresh-button{
+  .delete-refresh-icons {
     position: fixed;
-    right: 190px;
-    top: 5px;
-
   }
+  
+  .delete-icon {
+    display: inline-block;
+  }
+  
+  .refresh-icon {
+    display: inline-block;
+  }
+  
 

@@ -84,12 +84,13 @@ function Drawing() {
   <IconButton>
     <DeleteIcon className="erase-button" onClick={handleEraseAll} />
   </IconButton>
-</div>
-<label style={{ position: "absolute", top: 0, right: 50 }}>
+
+<label style={{ position: "fixed", top: 2, right: 80 }}>
   <IconButton color="black" style={{ fontSize: 50 }}>
     <RefreshIcon fontSize="inherit" onClick={handleUndo} />
   </IconButton>
 </label>
+</div>
 
       <CanvasDraw
         ref={canvasRef}
@@ -101,8 +102,8 @@ function Drawing() {
         catenaryColor={"#0a0302"}
         gridColor={"rgba(150,150,150,0.17)"}
         hideGrid={false}
-        canvasWidth={1536}
-        canvasHeight={2048}
+        canvasWidth={1000}
+        canvasHeight={1000}
         disabled={false}
         imgSrc={""}
         saveData={null}
@@ -147,10 +148,8 @@ function Drawing() {
      
 
       <div className="button-container">
-        ¨
-        <button className="erase-button" onClick={handleEraseAll}>
-          ERASE ALL
-        </button>
+        
+   
           <button className="save-button" onClick={handleSaveClick}>
             DONE
           </button>
@@ -160,6 +159,7 @@ function Drawing() {
 }
 
 export default Drawing;
+
 
 
 
