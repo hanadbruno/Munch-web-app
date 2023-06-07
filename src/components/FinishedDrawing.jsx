@@ -22,7 +22,7 @@ const FinishedDrawing = () => {
   };
 
   const handleQuit = async () => {
-    const response = await fetch('http://192.168.83.133:3001/delete-file', {
+    const response = await fetch('http://localhost:3001/delete-file', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -47,7 +47,7 @@ const FinishedDrawing = () => {
     const canvas = canvasRef.current.canvasContainer.children[1];
     const dataUrl = canvas.toDataURL('image/png');
 
-    const response = await fetch('http://192.168.83.133:3001/save-signature', {
+    const response = await fetch('http://localhost:3001/save-signature', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'

@@ -135,6 +135,10 @@ const redo = () => {
     }
 };
 
+const quit = () => {
+  navigate("/");
+}
+
 
 const handleSaveClick = async () => {
 
@@ -355,7 +359,7 @@ const handleSaveClick = async () => {
             {displayDoneOptions &&
                 <div style={doneButtonsContainerStyle}>
                     <button onClick={handleSaveClick} style={doneButtonsStyle}>SAVE</button>
-                    <button style={doneButtonsStyle}>QUIT</button>
+                    <button onClick={quit} style={doneButtonsStyle}>QUIT</button>
                     <button onClick={() => setDisplayDoneOptions(false)} style={doneButtonsStyle}>BACK</button>
                 </div>
             }
