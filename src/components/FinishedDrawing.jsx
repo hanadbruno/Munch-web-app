@@ -16,7 +16,7 @@ const FinishedDrawing = () => {
   const navigate = useNavigate();
 
   const location = useLocation();
-  const {filename, filename2} = location.state //|| {};
+  const {filename, filename2} = location.state // || {};
   
 
   
