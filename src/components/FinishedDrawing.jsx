@@ -5,6 +5,8 @@ import { useLocation } from "react-router-dom";
 import "../FinishedDrawing.css";
 import { bannedwords } from "../bannedwords.js";
 
+
+
 const FinishedDrawing = () => {
   const [brushRadius] = useState(3);
   const [brushColor] = useState("#444");
@@ -24,7 +26,7 @@ const FinishedDrawing = () => {
 
 
   const handleQuit = async () => {
-    const response = await fetch('http://192.168.172.133:3001/delete-file', {
+    const response = await fetch(`http://172.20.10.9:3001/delete-file`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -49,7 +51,7 @@ const FinishedDrawing = () => {
     const canvas = canvasRef.current.canvasContainer.children[1];
     const dataUrl = canvas.toDataURL('image/png');
 
-    const response = await fetch('http://192.168.172.133:3001/save-signature', {
+    const response = await fetch(`http://172.20.10.9:3001/save-signature`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'

@@ -4,6 +4,7 @@ import DrawingPage from './components/DrawingPage';
 import ExitPage from './components/ExitPage';
 import FinishDrawing from './components/FinishedDrawing';
 
+
 const App = () => {
   return (
     <Router>

@@ -8,6 +8,7 @@ const crypto = require('crypto');
 const path = require('path');
 const os = require('os');
 
+
 const username = os.userInfo().username;
 console.log(username);
 
@@ -27,7 +28,7 @@ app.post('/save-image', (req, res) => {
   const base64Data = data.split(',')[1];
   const buffer = Buffer.from(base64Data, 'base64');
   const timestamp = Date.now();
-  const db_artpath = `http://192.168.172.133:5000/images/artpiece_${timestamp}.jpg`
+  const db_artpath = `http://172.20.10.9:5000/images/artpiece_${timestamp}.jpg`
 
   filename = `C:/Users/${username}/Pictures/munch/artpiece_${timestamp}.jpg`
   fs.writeFile(filename, buffer, (err) => {
@@ -72,14 +73,14 @@ app.post('/save-signature', (req, res) => {
   const base64Data = data.split(',')[1];
   const buffer = Buffer.from(base64Data, 'base64');
   const timestamp = Date.now(); 
-  const db_signpath = `http://192.168.172.133:5000/images/signature_${timestamp}.jpg`
-  const signatureFilename = `C:/Users/${username}/Pictures/munch/signature_${timestamp}.jpg`
+  const db_signpath = `http://172.20.10.9:5000/images/signature_${timestamp}.jpg`;
+  const signatureFilename = `C:/Users/${username}/Pictures/munch/signature_${timestamp}.jpg`;
   fs.writeFile(signatureFilename, buffer, (err) => {
     if (err) {
       console.error(err);
       res.status(500).send('Error saving image');
     } else {
-      axios.post('http://127.0.0.1:5000/api', {
+      axios.post(`http://172.20.10.9:5000/api`, {
         uik: uik,
         artwork_name: artworkName,
         artwork_path: filename,
