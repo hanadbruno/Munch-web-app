@@ -32,7 +32,7 @@ const FinishedDrawing = () => {
   
 
   const handleQuit = async () => {
-    const response = await fetch('http://192.168.172.1333001/delete-file', {
+    const response = await fetch('http://192.168.172.133:3001/delete-file', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'

@@ -102,7 +102,7 @@ function Drawing() {
     if (!drawing) {
       return;
     }
-    
+
     const { offsetX, offsetY, touches } = nativeEvent;
     if (touches) {
       const { pageX, pageY } = touches[0];
