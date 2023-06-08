@@ -17,6 +17,12 @@ body {
   -webkit-touch-callout: none;
 }
 
+button:focus, button:active, input:focus, input:active, textarea:focus, textarea:active {
+  outline: none !important;
+  background-color: none !important;
+  box-shadow: none !important;
+}
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
