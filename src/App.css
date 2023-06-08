@@ -44,15 +44,12 @@ input {
   font-size: 100px; 
   font-weight: bold;
   border: none;
+  background: none;
+  text-decoration: none;
   border-radius: 5px;
-  background-color: #fe390f;
   color: #000000;
   cursor: pointer;
   font-family: GirottMunch;
-}
-
-.start-button:hover {
-  background-color: #ff9800;
 }
 
 /*need border on canvas*/
