@@ -9,7 +9,7 @@ import { FaTrashAlt } from 'react-icons/fa';
 
 
 const FinishedDrawing = () => {
-  const [brushRadius] = useState(6);
+  const [brushRadius] = useState(3);
   const [brushColor] = useState("#444");
   const [artworkName, setArtworkName] = useState("");
   const canvasRef = useRef(null);
@@ -21,7 +21,9 @@ const FinishedDrawing = () => {
 
   
   const handleArtworkNameChange = (event) => {
+    document.getElementById("artwork-name").scrollIntoView();
     setArtworkName(event.target.value);
+    window.scrollTo(0, 0);
   };
 
   const handleEraseAllClick = () => {
@@ -30,7 +32,7 @@ const FinishedDrawing = () => {
   
 
   const handleQuit = async () => {
-    const response = await fetch('http://172.26.91.160:3001/delete-file', {
+    const response = await fetch('http://192.168.172.1333001/delete-file', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -55,7 +57,7 @@ const FinishedDrawing = () => {
     const canvas = canvasRef.current.canvasContainer.children[1];
     const dataUrl = canvas.toDataURL('image/png');
 
-    const response = await fetch('http://172.26.91.160:3001/save-signature', {
+    const response = await fetch('http://192.168.172.133:3001/save-signature', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -81,6 +83,7 @@ const FinishedDrawing = () => {
         </div>
       <h3 className="Title">TITLE</h3>
       <input 
+        id="artwork-name"
         placeholder="UNTITLED"
         value={artworkName}
         onChange={handleArtworkNameChange}
@@ -98,7 +101,7 @@ const FinishedDrawing = () => {
         brushColor={brushColor}
         catenaryColor={"#0a0302"}
         gridColor={"rgba(150,150,150,0.17)"}
-        hideGrid={false}
+        hideGrid={true}
         canvasWidth={800}
         canvasHeight={200}
         disabled={false}

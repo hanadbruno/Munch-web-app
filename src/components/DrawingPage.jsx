@@ -15,7 +15,7 @@ function Drawing() {
   const colorPickerRef = useRef(null);
   const [drawing, setDrawing] = useState(false);
   const [brushColor, setBrushColor] = useState('#000000');
-  const [brushSize, setBrushSize] = useState(15);
+  const [brushSize, setBrushSize] = useState(1);
   const [history, setHistory] = useState([]);
   const [step, setStep] = useState(-1);
   const [displayColorPicker, setDisplayColorPicker] = useState(false);
@@ -102,6 +102,7 @@ function Drawing() {
     if (!drawing) {
       return;
     }
+    
     const { offsetX, offsetY, touches } = nativeEvent;
     if (touches) {
       const { pageX, pageY } = touches[0];
@@ -148,7 +149,7 @@ const handleSaveClick = async () => {
   const dataUrl = canvas.toDataURL("image/png");
 
   // Send the base64 PNG to your server...
-  const response = await fetch("http://localhost:3001/save-image", {
+  const response = await fetch("http://192.168.172.133:3001/save-image", {
     // remember to specify the complete URL
     method: "POST",
     headers: {
@@ -166,11 +167,12 @@ const handleSaveClick = async () => {
 };
 
   const containerStyle = {
-    position: 'relative',
+    position: 'fixed',
+    overflow: 'hidden',
+    height: '100%',
+    width: '100%',
     textAlign: 'center',
     color: 'white',
-    height: '100vh',
-    width: '100vw',
     margin: '0',
     padding: '0',
     display: 'flex',
