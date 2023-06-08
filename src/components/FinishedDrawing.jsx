@@ -5,6 +5,9 @@ import { useLocation } from "react-router-dom";
 import "../FinishedDrawing.css";
 import { bannedwords } from "../bannedwords.js";
 
+import { FaTrashAlt } from 'react-icons/fa';
+
+
 const FinishedDrawing = () => {
   const [brushRadius] = useState(6);
   const [brushColor] = useState("#444");
@@ -13,12 +16,18 @@ const FinishedDrawing = () => {
   const navigate = useNavigate();
 
   const location = useLocation();
-  const {filename, filename2} = location.state;
+  const {filename, filename2} = location.state || {};
+  
 
   
   const handleArtworkNameChange = (event) => {
     setArtworkName(event.target.value);
   };
+
+  const handleEraseAllClick = () => {
+    canvasRef.current.clear();
+  };
+  
 
   const handleQuit = async () => {
     const response = await fetch('http://172.26.91.160:3001/delete-file', {
@@ -77,6 +86,8 @@ const FinishedDrawing = () => {
         onChange={handleArtworkNameChange}
       />
       <h3 className="Title">SIGNATURE</h3> 
+
+      <button className="erase-all-button" onClick={handleEraseAllClick}><FaTrashAlt/></button>
 
       <CanvasDraw
         ref={canvasRef}

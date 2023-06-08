@@ -56,3 +56,16 @@ body {
     font-family: GirottMunch;
   }
   
+
+  .erase-all-button {
+    position: fixed;
+    margin-left: 72%;
+    margin-top: 5%;
+    font-size: 2.5rem;
+    font-weight: bold;
+    border: none;
+    border-radius: 5px;
+    background-color: #fe390f;
+    color: #000000;
+    cursor: pointer;
+  }
