@@ -16,7 +16,7 @@ const FinishedDrawing = () => {
   const navigate = useNavigate();
 
   const location = useLocation();
-  const {filename, filename2} = location.state || {};
+  const {filename, filename2} = location.state //|| {};
   
 
   
@@ -111,13 +111,14 @@ const FinishedDrawing = () => {
         hideInterface={false}
       />
 
-    <button className="save-button" onClick={handleSaveClick}>
-        SAVE
-      </button>
-
-      <button className="quit-button" onClick={handleQuit}>
-        QUIT
-      </button >
+<div style={{ display: 'flex' }}>
+  <button className="save-button" onClick={handleSaveClick}>
+    SAVE
+  </button>
+  <button className="quit-button" onClick={handleQuit}>
+    QUIT
+  </button>
+</div>
     </div>
   );
 };
