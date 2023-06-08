@@ -3,5 +3,6 @@ export const bannedwords = [
     "lort",
     "buksesele",
     "71gradernord",
-    "juksepave"
+    "juksepave",
+    "badword"
 ]
