@@ -107,6 +107,7 @@ function Drawing() {
       const { pageX, pageY } = touches[0];
       const { top, left } = canvasRef.current.getBoundingClientRect();
       contextRef.current.lineTo(pageX - left, pageY - top);
+
     } else {
       contextRef.current.lineTo(offsetX, offsetY);
     }

@@ -3,11 +3,8 @@ from flask_socketio import SocketIO, emit
 from pymongo import MongoClient
 from flask_cors import CORS
 from pymongo.server_api import ServerApi
-import json
 from datetime import datetime
-from flask import abort
 import os
-
 
 app = Flask(__name__)
 CORS(app)

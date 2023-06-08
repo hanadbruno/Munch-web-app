@@ -21,7 +21,7 @@ const FinishedDrawing = () => {
   };
 
   const handleQuit = async () => {
-    const response = await fetch('http://localhost:3001/delete-file', {
+    const response = await fetch('http://172.26.91.160:3001/delete-file', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -46,12 +46,12 @@ const FinishedDrawing = () => {
     const canvas = canvasRef.current.canvasContainer.children[1];
     const dataUrl = canvas.toDataURL('image/png');
 
-    const response = await fetch('http://localhost:3001/save-signature', {
+    const response = await fetch('http://172.26.91.160:3001/save-signature', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({
+        body: JSON.stringify({ 
             signature_image: dataUrl,
             artwork_name: artworkName === "" ? "UNTITLED" : artworkName,
             filename
