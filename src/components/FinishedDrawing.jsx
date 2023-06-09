@@ -18,7 +18,9 @@ const FinishedDrawing = () => {
   const location = useLocation();
   const {filename, filename2} = location.state // || {};
   
-
+  const handleInputBlur = (event) => {
+    window.scrollTo(0, 0);
+  };
   
   const handleArtworkNameChange = (event) => {
     document.getElementById("artwork-name").scrollIntoView();
@@ -87,6 +89,7 @@ const FinishedDrawing = () => {
         placeholder="UNTITLED"
         value={artworkName}
         onChange={handleArtworkNameChange}
+        onBlur={handleInputBlur}
       />
       <h3 className="Title">SIGNATURE</h3> 
 
