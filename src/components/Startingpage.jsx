@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
-import "../App.css";
+import "../css/StartingPage.css";
 
-function App() {
+function StartingPage() {
   const navigate = useNavigate();
 
   const handleStartClick = () => {
@@ -24,4 +24,4 @@ function App() {
   );
 }
 
-export default App;
+export default StartingPage;

@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import "../ExitPage.css";
+import "../css/ExitPage.css";
 
 const ExitPage = () => {
   const navigate = useNavigate();

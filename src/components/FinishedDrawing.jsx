@@ -2,7 +2,7 @@ import CanvasDraw from "react-canvas-draw";
 import React, { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useLocation } from "react-router-dom";
-import "../FinishedDrawing.css";
+import "../css/FinishedDrawing.css";
 import { bannedwords } from "../bannedwords.js";
 
 import { FaTrashAlt } from 'react-icons/fa';

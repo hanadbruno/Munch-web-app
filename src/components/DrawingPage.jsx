@@ -5,7 +5,7 @@ import { FaTrashAlt } from 'react-icons/fa';
 import { BsFillPaletteFill, BsFillBrushFill } from 'react-icons/bs';
 import { HexColorPicker } from 'react-colorful';
 import { useNavigate } from "react-router-dom";
-import "../Drawing.css";
+import "../css/DrawingPage.css";
 
 function Drawing() {
   const navigate = useNavigate();
