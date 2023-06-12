@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import '../css/StartingPage.css';
-
+//test comment - kan slettes
 function StartingPage() {
   const navigate = useNavigate();
 
