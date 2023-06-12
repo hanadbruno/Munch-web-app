@@ -1,17 +1,17 @@
-import CanvasDraw from "react-canvas-draw";
-import React, { useRef, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { useLocation } from "react-router-dom";
-import "../css/FinishedDrawing.css";
-import { bannedwords } from "../bannedwords.js";
+import CanvasDraw from 'react-canvas-draw';
+import React, { useRef, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
+import '../css/FinishedDrawing.css';
+import { bannedwords } from '../bannedwords.js';
 
 import { FaTrashAlt } from 'react-icons/fa';
 
 
 const FinishedDrawing = () => {
   const [brushRadius] = useState(3);
-  const [brushColor] = useState("#444");
-  const [artworkName, setArtworkName] = useState("");
+  const [brushColor] = useState('#444');
+  const [artworkName, setArtworkName] = useState('');
   const canvasRef = useRef(null);
   const navigate = useNavigate();
 
@@ -23,7 +23,7 @@ const FinishedDrawing = () => {
   };
   
   const handleArtworkNameChange = (event) => {
-    document.getElementById("artwork-name").scrollIntoView();
+    document.getElementById('artwork-name').scrollIntoView();
     setArtworkName(event.target.value);
     window.scrollTo(0, 0);
   };
@@ -44,7 +44,7 @@ const FinishedDrawing = () => {
   
     if (!response.ok) {
     } else {
-      navigate("/ExitPage");
+      navigate('/ExitPage');
     }
   };
 
@@ -66,59 +66,59 @@ const FinishedDrawing = () => {
         },
         body: JSON.stringify({ 
             signature_image: dataUrl,
-            artwork_name: artworkName === "" ? "UNTITLED" : artworkName,
+            artwork_name: artworkName === '' ? 'UNTITLED' : artworkName,
             filename
         })
     });
 
     if (!response.ok) {
-        navigate("/ExitPage");
+        navigate('/ExitPage');
     } else {
-        navigate("/ExitPage");
+        navigate('/ExitPage');
     }
 };
 
   return (
-    <div className="ArtworkBody">
-        <div className="ArtworkImage">
-          <img src={filename} alt={filename} style={{width: "100%", height: "100%"}}/>
+    <div className='ArtworkBody'>
+        <div className='ArtworkImage'>
+          <img src={filename} alt={filename} style={{width: '100%', height: '100%'}}/>
         </div>
-      <h3 className="Title">TITLE</h3>
+      <h3 className='Title'>TITLE</h3>
       <input 
-        id="artwork-name"
-        placeholder="UNTITLED"
+        id='artwork-name'
+        placeholder='UNTITLED'
         value={artworkName}
         onChange={handleArtworkNameChange}
         onBlur={handleInputBlur}
       />
-      <h3 className="Title">SIGNATURE</h3> 
+      <h3 className='Title'>SIGNATURE</h3> 
 
-      <button className="erase-all-button" onClick={handleEraseAllClick}><FaTrashAlt/></button>
+      <button className='erase-all-button' onClick={handleEraseAllClick}><FaTrashAlt/></button>
 
       <CanvasDraw
         ref={canvasRef}
-        className="canvas-draw"
+        className='canvas-draw'
         loadTimeOffset={5}
         lazyRadius={0}
         brushRadius={brushRadius}
         brushColor={brushColor}
-        catenaryColor={"#0a0302"}
-        gridColor={"rgba(150,150,150,0.17)"}
+        catenaryColor={'#0a0302'}
+        gridColor={'rgba(150,150,150,0.17)'}
         hideGrid={true}
         canvasWidth={800}
         canvasHeight={200}
         disabled={false}
-        imgSrc={""}
+        imgSrc={''}
         saveData={null}
         immediateLoading={false}
         hideInterface={false}
       />
 
 <div style={{ display: 'flex' }}>
-  <button className="save-button" onClick={handleSaveClick}>
+  <button className='save-button' onClick={handleSaveClick}>
     SAVE
   </button>
-  <button className="quit-button" onClick={handleQuit}>
+  <button className='quit-button' onClick={handleQuit}>
     QUIT
   </button>
 </div>

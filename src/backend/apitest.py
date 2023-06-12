@@ -3,7 +3,7 @@ import bson.binary
 import datetime
 from pymongo.server_api import ServerApi
 
-uri = "mongodb+srv://munch:munch2023@atlascluster.9zbzama.mongodb.net/?retryWrites=true&w=majority"
+uri = 'mongodb+srv://munch:munch2023@atlascluster.9zbzama.mongodb.net/?retryWrites=true&w=majority'
 
 client = MongoClient(uri, server_api=ServerApi('1'))
 db = client['artwork']
