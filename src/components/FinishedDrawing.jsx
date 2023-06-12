@@ -79,11 +79,11 @@ const FinishedDrawing = () => {
 };
 
   return (
-    <div className='ArtworkBody'>
-        <div className='ArtworkImage'>
+    <div className='artwork-body'>
+        <div className='artwork-image'>
           <img src={filename} alt={filename} style={{width: '100%', height: '100%'}}/>
         </div>
-      <h3 className='Title'>TITLE</h3>
+      <h3 className='title'>TITLE</h3>
       <input 
         id='artwork-name'
         placeholder='UNTITLED'
@@ -91,7 +91,7 @@ const FinishedDrawing = () => {
         onChange={handleArtworkNameChange}
         onBlur={handleInputBlur}
       />
-      <h3 className='Title'>SIGNATURE</h3> 
+      <h3 className='title'>SIGNATURE</h3> 
 
       <button className='erase-all-button' onClick={handleEraseAllClick}><FaTrashAlt/></button>
 
