@@ -18,7 +18,9 @@ const FinishedDrawing = () => {
   const location = useLocation();
   const {filename, filename2} = location.state // || {};
   
-
+  const handleInputBlur = (event) => {
+    window.scrollTo(0, 0);
+  };
   
   const handleArtworkNameChange = (event) => {
     document.getElementById("artwork-name").scrollIntoView();
@@ -32,7 +34,7 @@ const FinishedDrawing = () => {
   
 
   const handleQuit = async () => {
-    const response = await fetch('http://192.168.172.1333001/delete-file', {
+    const response = await fetch('http://192.168.172.133:3001/delete-file', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -87,6 +89,7 @@ const FinishedDrawing = () => {
         placeholder="UNTITLED"
         value={artworkName}
         onChange={handleArtworkNameChange}
+        onBlur={handleInputBlur}
       />
       <h3 className="Title">SIGNATURE</h3> 
 
@@ -111,13 +114,14 @@ const FinishedDrawing = () => {
         hideInterface={false}
       />
 
-    <button className="save-button" onClick={handleSaveClick}>
-        SAVE
-      </button>
-
-      <button className="quit-button" onClick={handleQuit}>
-        QUIT
-      </button >
+<div style={{ display: 'flex' }}>
+  <button className="save-button" onClick={handleSaveClick}>
+    SAVE
+  </button>
+  <button className="quit-button" onClick={handleQuit}>
+    QUIT
+  </button>
+</div>
     </div>
   );
 };

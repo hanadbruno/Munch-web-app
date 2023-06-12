@@ -102,7 +102,7 @@ function Drawing() {
     if (!drawing) {
       return;
     }
-    
+
     const { offsetX, offsetY, touches } = nativeEvent;
     if (touches) {
       const { pageX, pageY } = touches[0];
@@ -161,6 +161,10 @@ const handleSaveClick = async () => {
   if (response.ok) {
     const { filename, filename2 } = await response.json();
     navigate("/FinishedDrawing", { state: { filename, filename2 } });
+
+    // Clear the history state after a successful save
+    setHistory([]);
+    setStep(-1);
   } else {
     navigate("/FinishedDrawing");
   }

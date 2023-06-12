@@ -34,20 +34,9 @@ body {
     margin: 20px auto;
   }
   
-  .save-button {
-    font-size: 55px;
-    font-weight: bold;
-    border: none;
-    background: none;
-    border-radius: 5px;
-    color: #000000;
-    cursor: pointer;
-    font-family: GirottMunch;
-  }
-  
+  .save-button,
   .quit-button {
-    bottom: 100px;
-    right: 300px;
+    display: inline-block;
     font-size: 55px;
     font-weight: bold;
     border: none;
@@ -56,6 +45,8 @@ body {
     color: #000000;
     cursor: pointer;
     font-family: GirottMunch;
+    position: relative;
+    padding-top: 25%;
   }
   
 
@@ -67,7 +58,7 @@ body {
     font-weight: bold;
     border: none;
     border-radius: 5px;
-    background-color: #fe390f;
+    background: none;
     color: #000000;
     cursor: pointer;
   }
