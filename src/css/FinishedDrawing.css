@@ -3,7 +3,7 @@ body {
     
 }
   
-.ArtworkBody {
+.artwork-body {
   position: fixed;
   display: flex;
   flex-direction: column;
@@ -13,7 +13,7 @@ body {
   width: 100%;
 }
 
-.ArtworkImage {
+.artwork-image {
   border: rgba(0, 0, 0, 1) 0.5vh inset;
   width: 40vw;
   height: auto;
@@ -22,7 +22,7 @@ body {
   margin: 20px auto; 
 }
   
-  .Title {
+  .title {
     font-size: 90px;
     font-weight: bold;
     margin: 20px auto;
