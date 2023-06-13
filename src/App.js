@@ -9,18 +9,11 @@ const App = () => {
   return (
     <Router>
       <Routes>
-<<<<<<< HEAD
-        <Route path="/" element={<Startingpage />} />
-        <Route path="/DrawingPage" element={<DrawingPage />} />
-        <Route path="/ExitPage" element={<ExitPage />} />
-        <Route path="/FinishedDrawing" element={<FinishDrawing />} />
-=======
         <Route path='/' element={<StartingPage />} />
         <Route path='/DrawingPage' element={<DrawingPage />} />
         <Route path='/ExitPage' element={<ExitPage />} />
         <Route path='/FinishedDrawing' element={<FinishDrawing />} />
 
->>>>>>> d36651784957827ff14f47991fb0fd88eea61d63
       </Routes>
     </Router>
   );

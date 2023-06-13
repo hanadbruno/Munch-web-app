@@ -7,13 +7,8 @@ const ExitPage = () => {
 
   useEffect(() => {
     const timer = setTimeout(() => {
-<<<<<<< HEAD
       window.location.assign("http://172.20.10.5:3000/");
     }, 3000); // 10000 milliseconds = 10 seconds
-=======
-      window.location.assign('http://192.168.172.133:3000/');
-    }, 100); // 10000 milliseconds = 10 seconds
->>>>>>> d36651784957827ff14f47991fb0fd88eea61d63
 
     return () => {
       clearTimeout(timer); // Clear the timer if the component unmounts before the timeout
