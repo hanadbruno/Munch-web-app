@@ -3,10 +3,16 @@ import React, { useEffect, useRef, useState } from 'react';
 import { MdOutlineUndo, MdOutlineRedo } from 'react-icons/md';
 import { FaTrashAlt } from 'react-icons/fa';
 import { BsFillPaletteFill, BsFillBrushFill } from 'react-icons/bs';
+import {RiErrorWarningLine} from 'react-icons/ri';
 import { HexColorPicker } from 'react-colorful';
 import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import '../css/DrawingPage.css';
+import ReactDOMServer from 'react-dom/server';
+
+
+const iconSvg = ReactDOMServer.renderToStaticMarkup(<RiErrorWarningLine color='#FE390F' />);
+const iconDataUrl = `data:image/svg+xml,${encodeURIComponent(iconSvg)}`;
 
 const IP = process.env.REACT_APP_IP_ADD;
 
@@ -143,13 +149,20 @@ const redo = () => {
 const quit = () => {
   Swal.fire({
     title: 'Are you sure?',
-    text: "You won't be able to revert this!",
-    icon: 'warning',
+    text: "Your artwork will be deleted!",
+
+    imageUrl: iconDataUrl,
+    imageWidth: 120,
+    imageHeight: 120,
+    imageAlt: 'Custom image',
+
+    backdrop: 'rgba(1,1,1,0.5)',
+    color: 'black',
     showCancelButton: true,
     confirmButtonText: 'Yes, quit!',
-    confirmButtonColor: '#3085d6',
+    confirmButtonColor: '#FE390F',
     cancelButtonText: 'No, stay here',
-    cancelButtonColor: '#d33'
+    cancelButtonColor: 'black'
   }).then((result) => {
     if (result.isConfirmed) {
       navigate('/');

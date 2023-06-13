@@ -9,8 +9,16 @@ import { FaTrashAlt } from 'react-icons/fa';
 import Keyboard from 'react-simple-keyboard';
 import 'react-simple-keyboard/build/css/index.css';
 import Swal from 'sweetalert2';
+import ReactDOMServer from 'react-dom/server';
+import {RiErrorWarningLine} from 'react-icons/ri';
+
+
 
 const IP = process.env.REACT_APP_IP_ADD;
+
+const iconSvg = ReactDOMServer.renderToStaticMarkup(<RiErrorWarningLine color='#FE390F' />);
+const iconDataUrl = `data:image/svg+xml,${encodeURIComponent(iconSvg)}`;
+
 
 const FinishedDrawing = () => {
   const [brushRadius] = useState(3);
@@ -66,12 +74,21 @@ const FinishedDrawing = () => {
     const ip = process.env.REACT_APP_IP_ADD;
 
   Swal.fire({
-    title: 'Are you sure?',
-    text: "You won't be able to revert this!",
-    icon: 'warning',
-    showCancelButton: true,
-    confirmButtonText: 'Yes, quit!',
-    cancelButtonText: 'No, stay here',
+      title: 'Are you sure?',
+      text: "Your artwork will be deleted",
+  
+      imageUrl: iconDataUrl,
+      imageWidth: 120,
+      imageHeight: 120,
+      imageAlt: 'Custom image',
+  
+      backdrop: 'rgba(1,1,1,0.5)',
+      color: 'black',
+      showCancelButton: true,
+      confirmButtonText: 'Yes, quit!',
+      confirmButtonColor: '#FE390F',
+      cancelButtonText: 'No, stay here',
+      cancelButtonColor: 'black'
   }).then(async (result) => {
     if (result.isConfirmed) {
       const response = await fetch(`http://${ip}:3001/delete-file`, {
@@ -128,11 +145,11 @@ const FinishedDrawing = () => {
 };
 
   return (
-    <div className="ArtworkBody">
-        <div className="ArtworkImage">
+    <div className="artwork-body">
+        <div className="artwork-image">
           <img src={filename} alt={filename} style={{width: "100%", height: "100%"}}/>
         </div>
-        <h3 className="Title">TITLE</h3>
+        <h3 className="title">TITLE</h3>
         <div
           className="input-field" 
           onClick={handleInputFocus}
@@ -140,7 +157,7 @@ const FinishedDrawing = () => {
           {artworkName || "UNTITLED"} 
         </div>
         {!keyboardVisible && (
-          <h3 className="Title">SIGNATURE</h3>
+          <h3 className="title">SIGNATURE</h3>
         )}
         {!keyboardVisible && (
           <button className="erase-all-button" onClick={handleEraseAllClick}><FaTrashAlt/></button>
