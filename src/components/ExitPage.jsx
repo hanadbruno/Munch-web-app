@@ -7,7 +7,7 @@ const ExitPage = () => {
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      window.location.assign('http://192.168.172.133:3000/');
+      window.location.assign('http://localhost:3000/');
     }, 100); // 10000 milliseconds = 10 seconds
 
     return () => {

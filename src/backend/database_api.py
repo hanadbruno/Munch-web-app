@@ -5,19 +5,27 @@ from flask_cors import CORS
 from pymongo.server_api import ServerApi
 from datetime import datetime
 import os
+from dotenv import load_dotenv
+
+load_dotenv('../../.env')
 
 app = Flask(__name__)
 CORS(app)
 socketio = SocketIO(app, cors_allowed_origins='*')
 
-uri = 'mongodb+srv://jonas:munch2023@cluster0.nfwqlqv.mongodb.net/?retryWrites=true&w=majority'
+
+# loading from .env to ensure password protected database:
+# goto .env to change authentication values
+username_DB = os.environ.get('DB_USERNAME')
+password = os.environ.get('DB_PASSWORD')
+
+uri = f"mongodb+srv://{username_DB}:{password}@cluster0.pde4tq8.mongodb.net/?retryWrites=true&w=majority"
 
 app.config['MONGO_DBNAME'] = 'MyMunch'
 app.config['MONGO_URI'] = 'uri'
 
 mongo = MongoClient(uri, server_api=ServerApi('1'))
 username = os.getlogin()
-
 
 @app.route('/', methods=['GET'])
 def hello():
