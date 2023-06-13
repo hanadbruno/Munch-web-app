@@ -9,6 +9,8 @@ import { FaTrashAlt } from 'react-icons/fa';
 import Keyboard from 'react-simple-keyboard';
 import 'react-simple-keyboard/build/css/index.css';
 
+const IP = process.env.REACT_APP_IP_ADD;
+
 const FinishedDrawing = () => {
   const [brushRadius] = useState(3);
   const [brushColor] = useState("#444");
@@ -60,7 +62,8 @@ const FinishedDrawing = () => {
   
 
   const handleQuit = async () => {
-    const response = await fetch('http://localhost:3001/delete-file', {
+    const ip = process.env.REACT_APP_IP_ADD;
+    const response = await fetch(`http://${ip}:3001/delete-file`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -85,7 +88,7 @@ const FinishedDrawing = () => {
     const canvas = canvasRef.current.canvasContainer.children[1];
     const dataUrl = canvas.toDataURL('image/png');
 
-    const response = await fetch('http://localhost:3001/save-signature', {
+    const response = await fetch(`http://${IP}:3001/save-signature`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'

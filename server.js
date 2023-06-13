@@ -9,6 +9,10 @@ const crypto = require('crypto');
 const path = require('path');
 const os = require('os');
 
+require('dotenv').config()
+const IP = process.env.IPAdd;
+console.log(IP);
+
 const username = os.userInfo().username;
 console.log(username);
 
@@ -31,7 +35,7 @@ app.post('/save-image', (req, res) => {
   const base64Data = data.split(',')[1];
   const buffer = Buffer.from(base64Data, 'base64');
   const timestamp = Date.now();
-  const db_artpath = `http://localhost:5000/images/artpiece_${timestamp}.jpg`
+  const db_artpath = `http://${IP}:5000/images/artpiece_${timestamp}.jpg`
 
   filename = `C:/Users/${username}/Pictures/munch/artpiece_${timestamp}.jpg`
   fs.writeFile(filename, buffer, (err) => {
@@ -79,7 +83,7 @@ app.post('/save-signature', (req, res) => {
   const base64Data = data.split(',')[1];
   const buffer = Buffer.from(base64Data, 'base64');
   const timestamp = Date.now(); 
-  const db_signpath = `http://localhost:5000/images/signature_${timestamp}.jpg`
+  const db_signpath = `http://${IP}:5000/images/signature_${timestamp}.jpg`
   const signatureFilename = `C:/Users/${username}/Pictures/munch/signature_${timestamp}.jpg`
   fs.writeFile(signatureFilename, buffer, (err) => {
     if (err) {
