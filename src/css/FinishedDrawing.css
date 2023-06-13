@@ -104,7 +104,7 @@ font-family: GirottMunch;
 }
 
 @media screen and (max-width: 480px) {
-  .ArtworkImage {
+  .artwork-image {
     width: 50%;
     max-width: none;
   }
