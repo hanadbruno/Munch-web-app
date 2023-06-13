@@ -1,4 +1,3 @@
-
 import React, { useEffect, useRef, useState } from 'react';
 import { MdOutlineUndo, MdOutlineRedo } from 'react-icons/md';
 import { FaTrashAlt } from 'react-icons/fa';
@@ -79,17 +78,17 @@ function Drawing() {
 
     const { offsetX, offsetY, touches } = nativeEvent;
     if (touches) {
-      const { pageX, pageY } = touches[0];
+      const { clientX, clientY } = touches[0];
       const { top, left } = canvasRef.current.getBoundingClientRect();
       contextRef.current.beginPath();
-      contextRef.current.moveTo(pageX - left, pageY - top);
+      contextRef.current.moveTo(clientX - left, clientY - top);
     } else {
       contextRef.current.beginPath();
       contextRef.current.moveTo(offsetX, offsetY);
     }
     contextRef.current.lineWidth = brushSize;
     setDrawing(true);
-  };
+};
   
   const finishDrawing = () => {
     contextRef.current.closePath();
@@ -105,15 +104,14 @@ function Drawing() {
 
     const { offsetX, offsetY, touches } = nativeEvent;
     if (touches) {
-      const { pageX, pageY } = touches[0];
+      const { clientX, clientY } = touches[0];
       const { top, left } = canvasRef.current.getBoundingClientRect();
-      contextRef.current.lineTo(pageX - left, pageY - top);
-
+      contextRef.current.lineTo(clientX - left, clientY - top);
     } else {
       contextRef.current.lineTo(offsetX, offsetY);
     }
     contextRef.current.stroke();
-  };
+};
 
   const clearCanvas = () => {
     const context = contextRef.current;
@@ -149,7 +147,7 @@ const handleSaveClick = async () => {
   const dataUrl = canvas.toDataURL("image/png");
 
   // Send the base64 PNG to your server...
-  const response = await fetch("http://192.168.172.133:3001/save-image", {
+  const response = await fetch("http://172.20.10.5:3001/save-image", {
     // remember to specify the complete URL
     method: "POST",
     headers: {
@@ -373,4 +371,3 @@ const handleSaveClick = async () => {
 }
 
 export default Drawing;
-

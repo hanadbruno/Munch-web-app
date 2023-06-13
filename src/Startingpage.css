@@ -1,0 +1,119 @@
+@font-face {
+  font-family: GirottMunch;
+  src: url("./fonts/GirottMunch-Bold.ttf");
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100vh;
+  width: 100vw;
+  font-family: Arial, sans-serif;
+  background-color: #fe390f;
+}
+
+.main-text {
+  padding-right: 10%;
+  padding-top: 10%;
+  font-size: 4vw;
+  font-weight: bold;
+  color: #fff;
+  width: 70%;
+  font-family: GirottMunch;
+}
+
+.start-button {
+  font-size: 3.5vw;
+  padding-top: 15%;
+  font-weight: bold;
+  border: none;
+  border-radius: 5px;
+  background-color: #fe390f;
+  color: #000000;
+  cursor: pointer;
+  font-family: GirottMunch;
+}
+
+/* Media Queries for different screen sizes */
+
+@media (max-width: 480px) {
+  .main-text {
+    padding-right: 5%;
+    padding-top: 10%;
+    font-size: 7vw;
+  }
+
+  .start-button {
+    font-size: 6vw;
+    padding-top: 15%;
+  }
+}
+
+@media (min-width: 481px) and (max-width: 767px) {
+  .main-text {
+    padding-right: 5%;
+    padding-top: 5%;
+    font-size: 6vw;
+  }
+
+  .start-button {
+    font-size: 5vw;
+    padding-top: 12%;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  .main-text {
+    padding-right: 5%;
+    padding-top: 5%;
+    font-size: 5vw;
+  }
+
+  .start-button {
+    font-size: 4.5vw;
+    padding-top: 8%;
+  }
+}
+
+@media (min-width: 1024px) and (max-width: 1439px) {
+  .main-text {
+    padding-right: 20%;
+    padding-top: 10%;
+    font-size: 6vw;
+    width: 60vw;
+  }
+
+  .start-button {
+    font-size: 8vw;
+    padding-top: 12%;
+  }
+}
+
+@media (min-width: 1440px) and (max-width: 1599px) {
+  .main-text {
+    padding-right: 15%;
+    padding-top: 5%;
+    font-size: 2.5vw;
+    width: 50vw;
+  }
+
+  .start-button {
+    font-size: 2.5vw;
+    padding-top: 5%;
+  }
+}
+
+@media (min-width: 1600px) {
+  .main-text {
+    padding-right: 15%;
+    padding-top: 5%;
+    font-size: 4.5vw;
+    width: 50vw;
+  }
+
+  .start-button {
+    font-size: 2.5vw;
+    padding-top: 5%;
+  }
+}

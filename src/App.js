@@ -3,6 +3,7 @@ import Startingpage from './components/Startingpage';
 import DrawingPage from './components/DrawingPage';
 import ExitPage from './components/ExitPage';
 import FinishDrawing from './components/FinishedDrawing';
+import React from 'react';
 
 const App = () => {
   return (
@@ -12,7 +13,6 @@ const App = () => {
         <Route path="/DrawingPage" element={<DrawingPage />} />
         <Route path="/ExitPage" element={<ExitPage />} />
         <Route path="/FinishedDrawing" element={<FinishDrawing />} />
-
       </Routes>
     </Router>
   );
