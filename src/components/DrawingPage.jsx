@@ -5,6 +5,7 @@ import { FaTrashAlt } from 'react-icons/fa';
 import { BsFillPaletteFill, BsFillBrushFill } from 'react-icons/bs';
 import { HexColorPicker } from 'react-colorful';
 import { useNavigate } from 'react-router-dom';
+import Swal from 'sweetalert2';
 import '../css/DrawingPage.css';
 
 const IP = process.env.REACT_APP_IP_ADD;
@@ -140,7 +141,20 @@ const redo = () => {
 };
 
 const quit = () => {
-  navigate('/');
+  Swal.fire({
+    title: 'Are you sure?',
+    text: "You won't be able to revert this!",
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonText: 'Yes, quit!',
+    confirmButtonColor: '#3085d6',
+    cancelButtonText: 'No, stay here',
+    cancelButtonColor: '#d33'
+  }).then((result) => {
+    if (result.isConfirmed) {
+      navigate('/');
+    }
+  })
 }
 
 
