@@ -34,7 +34,7 @@ app.post('/save-image', (req, res) => {
     if (err) {
       console.error(err);
       res.status(500).send('Error saving image');
-      console.log("eror");
+      console.log('eror');
     } else {
       // Image saved, send filename back to client
       res.json({ filename2: filename, filename: db_artpath}); //mby remove
@@ -55,11 +55,11 @@ app.post('/delete-file', (req, res) => {
 
   fs.unlink(filePath, (err) => {
     if (err) {
-      console.error("There was an error:", err);
+      console.error('There was an error:', err);
       res.status(500).send(err);
     } else {
-      console.log("File was deleted successfully");
-      res.send({ status: "File was deleted successfully" });
+      console.log('File was deleted successfully');
+      res.send({ status: 'File was deleted successfully' });
     }
   });
 });

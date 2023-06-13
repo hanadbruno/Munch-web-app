@@ -53,8 +53,13 @@ body {
   font-family: GirottMunch;
 }
   
+<<<<<<< HEAD:src/FinishedDrawing.css
 .ArtworkBody {
   position: relative;
+=======
+.artwork-body {
+  position: fixed;
+>>>>>>> d36651784957827ff14f47991fb0fd88eea61d63:src/css/FinishedDrawing.css
   display: flex;
   flex-direction: column;
   align-items: center; 
@@ -63,7 +68,7 @@ body {
   width: 100%;
 }
 
-.ArtworkImage {
+.artwork-image {
   border: rgba(0, 0, 0, 1) 0.5vh inset;
   width: 40vw;
   height: auto;
@@ -72,10 +77,15 @@ body {
   margin: 20px auto; 
 }
   
+<<<<<<< HEAD:src/FinishedDrawing.css
   .Title {
     margin: 0;
     padding: 0;
     font-size: 3em;
+=======
+  .title {
+    font-size: 90px;
+>>>>>>> d36651784957827ff14f47991fb0fd88eea61d63:src/css/FinishedDrawing.css
     font-weight: bold;
     font-family: GirottMunch;
     color: #000000;

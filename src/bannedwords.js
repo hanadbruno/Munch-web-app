@@ -1,8 +1,8 @@
 export const bannedwords = [
-    "hest",
-    "lort",
-    "buksesele",
-    "71gradernord",
-    "juksepave",
-    "badword"
+    'hest',
+    'lort',
+    'buksesele',
+    '71gradernord',
+    'juksepave',
+    'badword'
 ]

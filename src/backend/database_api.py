@@ -8,9 +8,13 @@ import os
 
 app = Flask(__name__)
 CORS(app)
-socketio = SocketIO(app, cors_allowed_origins="*")
+socketio = SocketIO(app, cors_allowed_origins='*')
 
+<<<<<<< HEAD
 uri = "mongodb+srv://einikin:jCw4bPkqcL2vq13I@cluster0.ol7ipuw.mongodb.net/?retryWrites=true&w=majority"
+=======
+uri = 'mongodb+srv://jonas:munch2023@cluster0.nfwqlqv.mongodb.net/?retryWrites=true&w=majority'
+>>>>>>> d36651784957827ff14f47991fb0fd88eea61d63
 
 app.config['MONGO_DBNAME'] = 'MyMunch'
 app.config['MONGO_URI'] = 'uri'
@@ -46,7 +50,7 @@ def get_all_data():
 
 
 def transform_path(path):
-    filename = path.split("/")[-1]
+    filename = path.split('/')[-1]
     return f'/images/{filename}'
 
 

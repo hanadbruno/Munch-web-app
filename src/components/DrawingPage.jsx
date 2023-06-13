@@ -3,8 +3,8 @@ import { MdOutlineUndo, MdOutlineRedo } from 'react-icons/md';
 import { FaTrashAlt } from 'react-icons/fa';
 import { BsFillPaletteFill, BsFillBrushFill } from 'react-icons/bs';
 import { HexColorPicker } from 'react-colorful';
-import { useNavigate } from "react-router-dom";
-import "../Drawing.css";
+import { useNavigate } from 'react-router-dom';
+import '../css/DrawingPage.css';
 
 function Drawing() {
   const navigate = useNavigate();
@@ -136,7 +136,7 @@ const redo = () => {
 };
 
 const quit = () => {
-  navigate("/");
+  navigate('/');
 }
 
 
@@ -144,27 +144,27 @@ const handleSaveClick = async () => {
 
   // Get the canvas' internal canvas and convert it to a base64 PNG
   const canvas = canvasRef.current;
-  const dataUrl = canvas.toDataURL("image/png");
+  const dataUrl = canvas.toDataURL('image/png');
 
   // Send the base64 PNG to your server...
-  const response = await fetch("http://172.20.10.5:3001/save-image", {
+  const response = await fetch("http://192.168.172.133:3001/save-image", {
     // remember to specify the complete URL
-    method: "POST",
+    method: 'POST',
     headers: {
-      "Content-Type": "application/json",
+      'Content-Type': 'application/json',
     },
     body: JSON.stringify({ image: dataUrl }),
   });
 
   if (response.ok) {
     const { filename, filename2 } = await response.json();
-    navigate("/FinishedDrawing", { state: { filename, filename2 } });
+    navigate('/FinishedDrawing', { state: { filename, filename2 } });
 
     // Clear the history state after a successful save
     setHistory([]);
     setStep(-1);
   } else {
-    navigate("/FinishedDrawing");
+    navigate('/FinishedDrawing');
   }
 };
 
@@ -347,12 +347,12 @@ const handleSaveClick = async () => {
             </div>
             <div ref={brushSizeInputRef} style={brushSizeInputStyle}>
                 {!displayDoneOptions && !showBrushSizeInput && <BsFillBrushFill onClick={e => {setDisplayColorPicker(false); setShowBrushSizeInput(prev => !prev);}} />}
-                {showBrushSizeInput && <input type="range"
+                {showBrushSizeInput && <input type='range'
                                               min={1}
                                               max={50}
                                               value={brushSize}
                                               onChange={e => setBrushSize(Number(e.target.value))}
-                                              className="slider"
+                                              className='slider'
                                         />
                 }
             </div>
