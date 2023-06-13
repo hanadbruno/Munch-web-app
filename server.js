@@ -1,6 +1,7 @@
 const express = require('express');
 const fs = require('fs');
 const cors = require('cors');
+const helmet = require('helmet');
 const app = express();
 const axios = require('axios');
 //to create random * process id:
@@ -12,8 +13,10 @@ const username = os.userInfo().username;
 console.log(username);
 
 app.use(cors());
+app.use(helmet());
 app.use(express.json({ limit: '100mb' }));
 
+//function to generate random * processID
 function generateUID() {
   let randomString = crypto.randomBytes(16).toString('hex');
   let processId = process.pid;
@@ -21,13 +24,14 @@ function generateUID() {
   return uid;
 }
 
-
+// ./save-image to save image
+//returns filename and path
 app.post('/save-image', (req, res) => {
   const data = req.body.image;
   const base64Data = data.split(',')[1];
   const buffer = Buffer.from(base64Data, 'base64');
   const timestamp = Date.now();
-  const db_artpath = `http://192.168.172.133:5000/images/artpiece_${timestamp}.jpg`
+  const db_artpath = `http://localhost:5000/images/artpiece_${timestamp}.jpg`
 
   filename = `C:/Users/${username}/Pictures/munch/artpiece_${timestamp}.jpg`
   fs.writeFile(filename, buffer, (err) => {
@@ -37,11 +41,12 @@ app.post('/save-image', (req, res) => {
       console.log('eror');
     } else {
       // Image saved, send filename back to client
-      res.json({ filename2: filename, filename: db_artpath}); //mby remove
+      res.json({ filename2: filename, filename: db_artpath}); 
     }
   });
 });
 
+// ./delete-file takes filename2 to delete in folder
 app.post('/delete-file', (req, res) => {
   const filePath = req.body.path;
   console.log(filePath);
@@ -64,6 +69,8 @@ app.post('/delete-file', (req, res) => {
   });
 });
 
+
+//saves signature image and axios posts the values to 
 app.post('/save-signature', (req, res) => {
   const uik = generateUID();
   const data = req.body.signature_image;
@@ -72,7 +79,7 @@ app.post('/save-signature', (req, res) => {
   const base64Data = data.split(',')[1];
   const buffer = Buffer.from(base64Data, 'base64');
   const timestamp = Date.now(); 
-  const db_signpath = `http://192.168.172.133:5000/images/signature_${timestamp}.jpg`
+  const db_signpath = `http://localhost:5000/images/signature_${timestamp}.jpg`
   const signatureFilename = `C:/Users/${username}/Pictures/munch/signature_${timestamp}.jpg`
   fs.writeFile(signatureFilename, buffer, (err) => {
     if (err) {
@@ -96,6 +103,7 @@ app.post('/save-signature', (req, res) => {
   });
 });
 
+//server listening on port 3001:
 app.listen(3001, () => {
   console.log('Server listening on port 3001');
   console.log()
