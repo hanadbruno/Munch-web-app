@@ -1,0 +1,56 @@
+@font-face {
+  font-family: GirottMunch;
+  src: url("./fonts/GirottMunch-Bold.ttf");
+}
+
+.exit-body {
+  height: 100vh;
+  background-color: #fe390f;
+}
+
+.exit-page-container {
+  background-color: #fe390f;
+  color: white;
+  position: absolute;
+  top: 10%;
+  left: 5%;
+  width: 90%;
+  font-size: 4vw;
+  font-family: GirottMunch;
+}
+
+@media (min-width: 300px) {
+  .exit-page-container {
+    width: 80%;
+    font-size: 7vw;
+    top: 25%;
+    left: 20%;
+  }
+}
+
+@media (min-width: 768px) {
+  .exit-page-container {
+    width: 70%;
+    font-size: 3vw;
+    top: 15%;
+    left: 15%;
+  }
+}
+
+@media (min-width: 1024px) {
+  .exit-page-container {
+    width: 60%;
+    font-size: 6.5vw;
+    top: 25%;
+    left: 25%;
+  }
+}
+
+@media (min-width: 1440px) {
+  .exit-page-container {
+    width: 40%;
+    font-size: 3.5vw;
+    top: 15%;
+    left: 30%;
+  }
+}

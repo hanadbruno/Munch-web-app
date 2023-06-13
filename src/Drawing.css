@@ -1,0 +1,33 @@
+body {
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  width: 100vw;
+}
+
+.slider {
+  width: 12vw;
+  height: 1vh;
+  outline: none;
+  padding: 0;
+  margin: 0 0 1.5vh 0;
+}
+
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 3vw;
+  height: 3vw;
+  border: 0.2vh solid #fe390f;
+  border-radius: 50%;
+  background: black;
+  cursor: pointer;
+}
+
+.slider::-moz-range-thumb {
+  width: 3vw;
+  height: 3vw;
+  border-radius: 50%;
+  background: black;
+  cursor: pointer;
+}
