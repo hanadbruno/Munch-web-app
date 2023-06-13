@@ -8,6 +8,7 @@ import { bannedwords } from "../bannedwords.js";
 import { FaTrashAlt } from 'react-icons/fa';
 import Keyboard from 'react-simple-keyboard';
 import 'react-simple-keyboard/build/css/index.css';
+import Swal from 'sweetalert2';
 
 const IP = process.env.REACT_APP_IP_ADD;
 
@@ -63,18 +64,37 @@ const FinishedDrawing = () => {
 
   const handleQuit = async () => {
     const ip = process.env.REACT_APP_IP_ADD;
-    const response = await fetch(`http://${ip}:3001/delete-file`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({ path: filename2 })
-    });
-  
-    if (!response.ok) {
-    } else {
-      navigate("/ExitPage");
+
+  Swal.fire({
+    title: 'Are you sure?',
+    text: "You won't be able to revert this!",
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonText: 'Yes, quit!',
+    cancelButtonText: 'No, stay here',
+  }).then(async (result) => {
+    if (result.isConfirmed) {
+      const response = await fetch(`http://${ip}:3001/delete-file`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ path: filename2 })
+      });
+
+      if (response.ok) {
+        navigate("/ExitPage");
+      } else {
+        // Handle the error here
+        // You might want to show another alert to let the user know the operation failed
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: 'Something went wrong!',
+        })
+      }
     }
+  });
   };
 
   const handleSaveClick = async () => {
