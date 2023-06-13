@@ -16,10 +16,7 @@ socketio = SocketIO(app, cors_allowed_origins='*')
 
 # loading from .env to ensure password protected database:
 # goto .env to change authentication values
-username_DB = os.environ.get('DB_USERNAME')
-password = os.environ.get('DB_PASSWORD')
-
-uri = f"mongodb+srv://{username_DB}:{password}@cluster0.pde4tq8.mongodb.net/?retryWrites=true&w=majority"
+uri = os.environ.get('URI')
 
 app.config['MONGO_DBNAME'] = 'MyMunch'
 app.config['MONGO_URI'] = 'uri'
