@@ -7,6 +7,8 @@ import { HexColorPicker } from 'react-colorful';
 import { useNavigate } from 'react-router-dom';
 import '../css/DrawingPage.css';
 
+const IP = process.env.REACT_APP_IP_ADD;
+
 function Drawing() {
   const navigate = useNavigate();
   const canvasRef = useRef(null);
@@ -149,7 +151,7 @@ const handleSaveClick = async () => {
   const dataUrl = canvas.toDataURL('image/png');
 
   // Send the base64 PNG to your server...
-  const response = await fetch('http://localhost:3001/save-image', {
+  const response = await fetch(`http://${IP}:3001/save-image`, {
     // remember to specify the complete URL
     method: 'POST',
     headers: {
