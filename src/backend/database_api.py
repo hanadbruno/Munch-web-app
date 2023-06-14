@@ -24,6 +24,7 @@ app.config['MONGO_URI'] = 'uri'
 mongo = MongoClient(uri, server_api=ServerApi('1'))
 username = os.getlogin()
 
+
 @app.route('/', methods=['GET'])
 def hello():
     return 'Velkommen til dette APIet. For å se data, gå til /api'
@@ -48,6 +49,7 @@ def get_all_data():
             'time': u.get('time', '')
         })
     return jsonify({'result': output})
+
 
 def transform_path(path):
     filename = path.split('/')[-1]
@@ -91,17 +93,19 @@ def not_found():
 @app.route('/api', methods=['POST'])
 def add_data():
     artwork = mongo[app.config['MONGO_DBNAME']].artwork
-    uik = request.json['uik'] # uik = unique image key
+    uik = request.json['uik']  # uik = unique image key
     artwork_name = request.json['artwork_name']
     artwork_path = request.json['artwork_path']
     signature_path = request.json['signature_path']
-    time = datetime.now().strftime('%Y-%m-%d %H:%M:%S') # change here
+    time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')  # change here
 
     if uik and artwork_path and signature_path:
-        result = artwork.insert_one({'uik': uik, 'artwork_name': artwork_name, 'artwork_path': artwork_path, 'signature_path': signature_path, 'time': time})
+        result = artwork.insert_one({'uik': uik, 'artwork_name': artwork_name,
+                                    'artwork_path': artwork_path, 'signature_path': signature_path, 'time': time})
         id = result.inserted_id
         new_data = artwork.find_one({'_id': id})
-        output = {'_id': str(new_data.get('_id', '')), 'uik': new_data.get('uik', ''), 'artwork_name': new_data.get('artwork_name', ''), 'artwork_path': new_data.get('artwork_path', ''), 'signature_path': new_data.get('signature_path', ''), 'time': new_data.get('time', '')}
+        output = {'_id': str(new_data.get('_id', '')), 'uik': new_data.get('uik', ''), 'artwork_name': new_data.get('artwork_name', ''), 'artwork_path': new_data.get(
+            'artwork_path', ''), 'signature_path': new_data.get('signature_path', ''), 'time': new_data.get('time', '')}
         print('Emitting new_image event...')
         socketio.emit('new_image', output)
         print('Emitted new_image event:', output)
