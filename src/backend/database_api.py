@@ -97,7 +97,7 @@ def add_data():
     artwork_name = request.json['artwork_name']
     artwork_path = request.json['artwork_path']
     signature_path = request.json['signature_path']
-    time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+    time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')  # change here
 
     if uik and artwork_path and signature_path:
         result = artwork.insert_one({'uik': uik, 'artwork_name': artwork_name,

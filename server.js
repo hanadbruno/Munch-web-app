@@ -9,7 +9,7 @@ const crypto = require('crypto');
 const path = require('path');
 const os = require('os');
 
-require('dotenv').config()
+require('dotenv').config();
 const IP = process.env.IPAdd;
 console.log(IP);
 
@@ -35,9 +35,9 @@ app.post('/save-image', (req, res) => {
   const base64Data = data.split(',')[1];
   const buffer = Buffer.from(base64Data, 'base64');
   const timestamp = Date.now();
-  const db_artpath = `http://${IP}:5000/images/artpiece_${timestamp}.jpg`
+  const db_artpath = `http://${IP}:5000/images/artpiece_${timestamp}.jpg`;
 
-  filename = `/Users/jordan/Documents/Munch/artpiece_${timestamp}.jpg`
+  filename = `C:/Users/${username}/Pictures/munch/artpiece_${timestamp}.jpg`
   fs.writeFile(filename, buffer, (err) => {
     if (err) {
       console.error(err);
@@ -45,7 +45,7 @@ app.post('/save-image', (req, res) => {
       console.log('eror');
     } else {
       // Image saved, send filename back to client
-      res.json({ filename2: filename, filename: db_artpath}); 
+      res.json({ filename2: filename, filename: db_artpath });
     }
   });
 });
@@ -73,36 +73,36 @@ app.post('/delete-file', (req, res) => {
   });
 });
 
-
-//saves signature image and axios posts the values to 
+//saves signature image and axios posts the values to
 app.post('/save-signature', (req, res) => {
   const uik = generateUID();
   const data = req.body.signature_image;
   const artworkName = req.body.artwork_name;
-  const filename = req.body.filename; 
+  const filename = req.body.filename;
   const base64Data = data.split(',')[1];
   const buffer = Buffer.from(base64Data, 'base64');
-  const timestamp = Date.now(); 
-  const db_signpath = `http://${IP}:5000/images/signature_${timestamp}.jpg`
-  const signatureFilename = `C:/Users/${username}/Pictures/munch/signature_${timestamp}.jpg`
+  const timestamp = Date.now();
+  const db_signpath = `http://${IP}:5000/images/signature_${timestamp}.jpg`;
+  const signatureFilename = `C:/Users/${username}/Pictures/munch/signature_${timestamp}.jpg`;
   fs.writeFile(signatureFilename, buffer, (err) => {
     if (err) {
       console.error(err);
       res.status(500).send('Error saving image');
     } else {
-      axios.post('http://127.0.0.1:5000/api', {
-        uik: uik,
-        artwork_name: artworkName,
-        artwork_path: filename,
-        signature_path: db_signpath
-      })
-      .then(function (response) {
-        res.send('Signature and metadata saved successfully');
-      })
-      .catch(function (error) {
-        console.error(error);
-        res.status(500).send('Error saving metadata');
-      });
+      axios
+        .post('http://127.0.0.1:5000/api', {
+          uik: uik,
+          artwork_name: artworkName,
+          artwork_path: filename,
+          signature_path: db_signpath,
+        })
+        .then(function (response) {
+          res.send('Signature and metadata saved successfully');
+        })
+        .catch(function (error) {
+          console.error(error);
+          res.status(500).send('Error saving metadata');
+        });
     }
   });
 });
@@ -110,5 +110,5 @@ app.post('/save-signature', (req, res) => {
 //server listening on port 3001:
 app.listen(3001, () => {
   console.log('Server listening on port 3001');
-  console.log()
+  console.log();
 });

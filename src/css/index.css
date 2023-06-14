@@ -30,14 +30,19 @@ html {
 }
 
 button {
-  -webkit-tap-highlight-color: rgba(0,0,0,0);
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   -webkit-focus-ring-color: transparent;
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
 }
 
-button:focus, button:active, input:focus, input:active, textarea:focus, textarea:active {
+button:focus,
+button:active,
+input:focus,
+input:active,
+textarea:focus,
+textarea:active {
   outline: none !important;
   background-color: none !important;
   box-shadow: none !important;

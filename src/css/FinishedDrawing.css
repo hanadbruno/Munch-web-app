@@ -1,57 +1,57 @@
-body {   
-  background-color: #FE390F;
+body {
+  background-color: #fe390f;
 }
 
 .keyboard-container {
-position: fixed; 
-bottom: 0; 
-width: 100%; 
-z-index: 9999;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  z-index: 9999;
 }
 
 .keyboard {
-bottom: 0;
-left: 0;
-right: 0;
-width: 100%;
-z-index: 9999 !important;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  z-index: 9999 !important;
 }
 
 .simple-keyboard.darkTheme {
-background-color: rgba(0, 0, 0, 0.8);
-border-radius: 0;
-border-bottom-right-radius: 5px;
-border-bottom-left-radius: 5px;
+  background-color: rgba(0, 0, 0, 0.8);
+  border-radius: 0;
+  border-bottom-right-radius: 5px;
+  border-bottom-left-radius: 5px;
 }
 
 .simple-keyboard.darkTheme .hg-button {
-height: 50px;
-display: flex;
-justify-content: center;
-align-items: center;
-background: rgba(0, 0, 0, 0.5);
-color: white;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.5);
+  color: white;
 }
 
 .simple-keyboard.darkTheme .hg-button:active {
-background: white;
-color: black;
+  background: white;
+  color: black;
 }
 
 #root .simple-keyboard.darkTheme + .simple-keyboard-preview {
-background: white;
+  background: white;
 }
 
 .input-field {
-display: flex;
-flex-direction: row;
-justify-content: center;
-align-items: center;
-border: 0.15em solid black;
-font-size: 2em;
-min-width: 30vw;
-height: 5vw;
-font-family: GirottMunch;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  border: 0.15em solid black;
+  font-size: 2em;
+  min-width: 30vw;
+  height: 5vw;
+  font-family: GirottMunch;
 }
 
 .artwork-body {
@@ -91,7 +91,8 @@ font-family: GirottMunch;
   color: #000000;
 }
 
-.save-button, .quit-button {
+.save-button,
+.quit-button {
   font-weight: bold;
   border: none;
   background-color: #fe390f;

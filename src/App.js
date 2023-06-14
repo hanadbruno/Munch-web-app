@@ -12,7 +12,6 @@ const App = () => {
         <Route path='/DrawingPage' element={<DrawingPage />} />
         <Route path='/ExitPage' element={<ExitPage />} />
         <Route path='/FinishedDrawing' element={<FinishDrawing />} />
-
       </Routes>
     </Router>
   );
