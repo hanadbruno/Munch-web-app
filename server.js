@@ -37,7 +37,7 @@ app.post('/save-image', (req, res) => {
   const timestamp = Date.now();
   const db_artpath = `http://${IP}:5000/images/artpiece_${timestamp}.jpg`
 
-  filename = `/Users/jordan/Documents/Munch/artpiece_${timestamp}.jpg`
+  filename = `C:/Users/${username}/Pictures/munch/artpiece_${timestamp}.jpg`
   fs.writeFile(filename, buffer, (err) => {
     if (err) {
       console.error(err);
