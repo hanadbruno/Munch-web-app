@@ -116,10 +116,24 @@ const FinishedDrawing = () => {
 
   const handleSaveClick = async () => {
     const containsBadWords = bannedwords.some(word => artworkName.toLowerCase().includes(word.toLowerCase()));
-
+  
     if (containsBadWords) {
-        alert('Please choose an appropriate name for your artwork!');
-        return;
+      Swal.fire({
+        title: 'Oops...',
+        text: 'Please choose an appropriate name for your artwork!',
+        confirmButtonText: 'OK',
+        confirmButtonColor: '#FE390F',
+        imageUrl: iconDataUrl,
+        imageWidth: 120,
+        imageHeight: 120,
+        imageAlt: 'Custom image',
+    
+        backdrop: 'rgba(1,1,1,0.5)',
+        color: 'black',
+
+
+      });
+      return;
     }
 
     const canvas = canvasRef.current.canvasContainer.children[1];
